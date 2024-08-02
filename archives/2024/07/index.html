@@ -1,104 +1,295 @@
-<!doctype html>
-<html lang="en">
+<!DOCTYPE HTML>
+<html>
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-<link rel="stylesheet" href="/styles/base.css">
+  <meta charset="utf-8">
+  <meta http-equiv="pragma" content="no-cache">
+  <meta http-equiv="cache-control" content="no-cache">
+  <meta http-equiv="expires" content="0">
+  
+  <title>Archives: 2024/7 | paitsai</title>
+  <meta name="author" content="Paitsai">
+  
+  
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 
-    
-<link rel="stylesheet" href="/styles/theme.css">
+  
+  <meta property="og:site_name" content="paitsai"/>
 
-    <link rel="shortcut icon" href="/favicon.png">
-    
-    <title>首页 - paitsai</title>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
+  
+    <meta property="og:image" content=""/>
+  
 
-        gtag('config', 'G-XXXXXXXXX');
-    </script>
-    
+  
+  
+    <link href="//favicon.png" rel="icon">
+  
+  
+  <link rel="stylesheet" href="/css/bootstrap.min.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/font-awesome.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/style.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/responsive.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/highlight.css" media="screen" type="text/css">
+  <link rel="stylesheet" href="/css/google-fonts.css" media="screen" type="text/css">
+  <!--[if lt IE 9]><script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script><![endif]-->
+
+  <script src="/js/jquery-2.0.3.min.js"></script>
+
+  <!-- analytics -->
+  
+<script>
+  (function(i,s,o,g,r,a,m){i['GoogleAnalyticsObject']=r;i[r]=i[r]||function(){
+  (i[r].q=i[r].q||[]).push(arguments)},i[r].l=1*new Date();a=s.createElement(o),
+  m=s.getElementsByTagName(o)[0];a.async=1;a.src=g;m.parentNode.insertBefore(a,m)
+  })(window,document,'script','//www.google-analytics.com/analytics.js','ga');
+  ga('create', 'UA-70812759-1', 'auto');
+  ga('send', 'pageview');
+</script>
+
+
+
 <meta name="generator" content="Hexo 7.3.0"><link rel="alternate" href="/atom.xml" title="paitsai" type="application/atom+xml">
 <link rel="stylesheet" href="/css/prism.css" type="text/css">
 <link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head>
-<body>
-    <div class="header-title">
-        <span class="header-light"></span>
-        <span class="header-light"></span>
-        <span class="header-light"></span>
-        <span>paitsai teriyaki.sbs<span>
-    </div>
+
+ <body>  
+  <nav id="main-nav" class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
-        <ul class="nav">
-        
-            <li><a href="/">首页</a></li>
-        
-            <li><a href="/categories/技术/">技术文章</a></li>
-        
-            <li><a href="/categories/科研/">论文复现</a></li>
-        
-            <li><a href="/about/">关于</a></li>
-        
-        </ul>
-        <div class="content">
-            
-<div class="post-item">
-    <div class="post-header">
-        <span class="ui-tips post-index">1.</span>
-        <h2><a href="/2024/07/31/vae%E5%A4%8D%E7%8E%B0/">复现 VAE</a></h2>
-        <span class="post-date">2024-07-31</span>
-    </div>
-    <div class="post-content">
-        复现变分自编码器(VAE)
-代码地址
-VAE的核心思想
-相比于传统的编码器，VAE是通过引入隐变量Z来使用概率模型的生成模型。
-理想形态下的生成模型可以被描述为 \[
-X^!=P(Z) \]
-,Z是引入的隐变量。如果我们能够将输入样本X的一系列特征编码得到Z控制在已知的某个分布中，那么就能够在隐变量的分布空间中采样解码得到生成内容$
-X^! $.
-AE...
-    </div>
+      <button type="button" class="navbar-header navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+		<span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+	  <a class="navbar-brand" href="/">paitsai</a>
+      <div class="collapse navbar-collapse nav-menu">
+		<ul class="nav navbar-nav">
+		  
+		  <li>
+			<a href="/archives" title="All the articles.">
+			  <i class=""></i>Archives
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/categories" title="All the categories.">
+			  <i class=""></i>Categories
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/tags" title="All the tags.">
+			  <i class=""></i>Tags
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/about" title="About me.">
+			  <i class=""></i>About
+			</a>
+		  </li>
+		  
+		  <li>
+			<a href="/atom.xml" title="Subscribe me.">
+			  <i class=""></i>RSS
+			</a>
+		  </li>
+		  
+		</ul>
+      </div>
+    </div> <!-- container -->
+</nav>
+<div class="clearfix"></div>
+
+  <div class="container">
+  	<div class="content">
+    	 
+
+<!-- title -->
+<div class="page-header">
+  <h1 class="archive-title"><i class="fa fa-archive"></i> 2024/7</h1>
 </div>
 
-<div class="post-item">
-    <div class="post-header">
-        <span class="ui-tips post-index">2.</span>
-        <h2><a href="/2024/07/31/hello-world/">hexo 基础使用</a></h2>
-        <span class="post-date">2024-07-31</span>
-    </div>
-    <div class="post-content">
-        Welcome to Hexo! This is your very
-first post. Check documentation for
-more info. If you get any problems when using Hexo, you can find the
-answer in troubleshooting or
-you can ...
-    </div>
+<div class="row page">
+  <!-- cols -->
+  
+  <div class="col-md-9">
+	
+
+	  <div id="top_search"></div>
+
+	  <div class="archive">
+		
+		
+		
+			
+			
+			<h4 class="archive-ul" data-toggle="collapse" data-target="#2024">2024<b class="caret"></b></h4>
+			<ul id="2024" class="collapse in">
+			
+		
+		<li class="listing-item">
+		<span class="date_class"> 2024-08-01 </span> &raquo;
+		
+		   <span class="title"><a href="/2024/08/01/torch学习/" >torch学习</a></span>
+		
+		</li>			
+		
+		
+		
+		<li class="listing-item">
+		<span class="date_class"> 2024-07-31 </span> &raquo;
+		
+		   <span class="title"><a href="/2024/07/31/vae复现/" >复现 VAE</a></span>
+		
+		</li>			
+		
+		
+		
+		<li class="listing-item">
+		<span class="date_class"> 2024-07-31 </span> &raquo;
+		
+		   <span class="title"><a href="/2024/07/31/hello-world/" >hexo 基础使用</a></span>
+		
+		</li>			
+		
+		</ul>
+		</div>
+
+</div> <!-- col-md-9/col-md-12 -->
+
+
+<div class="col-md-3">
+	<div id="sidebar">
+	
+			
+  <div id="site_search">
+   <div class="form-group">
+    <input type="text" id="local-search-input" name="q" results="0" placeholder="Search" class="st-search-input st-default-search-input form-control"/>
+   </div>  
+  <div id="local-search-result"></div>
+  </div>
+
+
+		
+			
+	<div class="widget">
+		<h4>Categories</h4>
+		<ul class="tag_box inline list-unstyled">
+		
+			<li><a href="/categories/技术/">技术<span>2</span></a></li>
+		
+			<li><a href="/categories/科研/">科研<span>1</span></a></li>
+		
+		</ul>
+	</div>
+
+		
+			
+	<div class="widget">
+		<h4>Tag Cloud</h4>
+		<ul class="tag_box inline list-unstyled">		
+		
+			<li><a href="/tags/vae/">vae<span>1</span></a></li>
+		
+			<li><a href="/tags/hexo/">hexo<span>1</span></a></li>
+		
+			<li><a href="/tags/torch/">torch<span>1</span></a></li>
+		
+		 
+		</ul>
+	</div>
+
+
+		
+			
+<div class="widget">
+  <h4>Recent Posts</h4>
+  <ul class="entry list-unstyled">
+    
+      <li>
+        <a href="/2024/08/01/torch学习/" ><i class="fa fa-file-o"></i>torch学习</a>
+      </li>
+    
+      <li>
+        <a href="/2024/07/31/vae复现/" ><i class="fa fa-file-o"></i>复现 VAE</a>
+      </li>
+    
+      <li>
+        <a href="/2024/07/31/hello-world/" ><i class="fa fa-file-o"></i>hexo 基础使用</a>
+      </li>
+    
+  </ul>
+</div>
+
+		
+			
+<div class="widget">
+	<h4>Links</h4>
+	<ul class="blogroll list-unstyled">
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/wzpan/hexo-theme-freemind" title="Freemind's Github repository." target="_blank">Freemind</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/kristopolous/BOOTSTRA.386" title="BOOTSTRA.386's Github repository." target="_blank">BOOTSTRA.386</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="https://github.com/blackshow/hexo-theme-freemind.386" title="Freemind.386's Github repository." target="_blank">Freemind.386</a></li>
+	
+		<li><i class="fa fa-github"></i><a href="http://www.github.com/blackshow" title="My Github account." target="_blank">My Github</a></li>
+	
+	</ul>
 </div>
 
 
+		
+	</div> <!-- sidebar -->
+</div> <!-- col-md-3 -->
 
 
-        </div>
-        <div class="footer">
-            
-            <p class="footer-links">
-            
-                <a target="_blank" href="https://tinkink.net">&copy; Tinkink</a>
-            
-            </p>
-            
-            <p class="footer-copyright">
-                <span>Powered by <a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <span>Theme <a target="_blank" href="https://github.com/tinkink-co/hexo-theme-terminal">Terminal</a></span>
-            </p>
-        </div>
-    </div>
+
+
+	</div>
+  </div>
+  <div class="container-narrow">
+  <footer> <p>
+  &copy; 2024 Paitsai
+  
+      with help from <a href="http://hexo.io/" target="_blank">Hexo</a>,<a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind</a>,<a href="http://getbootstrap.com/" target="_blank">Twitter Bootstrap</a> and <a href="http://getbootstrap.com/" target="_blank">BOOTSTRA.386</a>. 
+     <br> Theme by <a target="_blank" rel="noopener" href="http://github.com/wzpan/hexo-theme-freemind/">Freemind.386</a>.    
+</p>
+ </footer>
+</div> <!-- container-narrow -->
+  
+
+
+  
+<a id="gotop" href="#">   
+  <span>⬆︎TOP</span>
+</a>
+
+<script src="/js/jquery.imagesloaded.min.js"></script>
+<script src="/js/gallery.js"></script>
+<script src="/js/bootstrap.min.js"></script>
+<script src="/js/main.js"></script>
+<script src="/js/search.js"></script> 
+
+
+<link rel="stylesheet" href="/fancybox/jquery.fancybox.css" media="screen" type="text/css">
+<script src="/fancybox/jquery.fancybox.pack.js"></script>
+<script type="text/javascript">
+(function($){
+  $('.fancybox').fancybox();
+})(jQuery);
+</script>
+
+
+
+   <script type="text/javascript">      
+     var search_path = "search.xml";
+	 if (search_path.length == 0) {
+	 	search_path = "search.xml";
+	 }
+	 var path = "/" + search_path;
+     searchFunc(path, 'local-search-input', 'local-search-result');
+   </script>
+
 </body>
-</html>
+   </html>

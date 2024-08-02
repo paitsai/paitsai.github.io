@@ -1,74 +1,13 @@
-<!doctype html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width">
-    <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    
-<link rel="stylesheet" href="/styles/base.css">
-
-    
-<link rel="stylesheet" href="/styles/theme.css">
-
-    <link rel="shortcut icon" href="/favicon.png">
-    
-    <title>复现 VAE - paitsai</title>
-    
-    <!-- Global site tag (gtag.js) - Google Analytics -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
-    <script>
-        window.dataLayer = window.dataLayer || [];
-        function gtag() { dataLayer.push(arguments); }
-        gtag('js', new Date());
-
-        gtag('config', 'G-XXXXXXXXX');
-    </script>
-    
-<meta name="generator" content="Hexo 7.3.0"></head>
-<body>
-    <div class="header-title">
-        <span class="header-light"></span>
-        <span class="header-light"></span>
-        <span class="header-light"></span>
-        <span>paitsai teriyaki.sbs<span>
-    </div>
-    <div class="container">
-        <ul class="nav">
-        
-            <li><a href="/">首页</a></li>
-        
-            <li><a href="/categories/技术/">技术文章</a></li>
-        
-            <li><a href="/categories/科研/">论文复现</a></li>
-        
-            <li><a href="/about/">关于</a></li>
-        
-        </ul>
-        <div class="content">
-            <div class="post-container">
-    <div class="post-header">
-        <span class="ui-tips">标题：</span>
-        <h1 class="ui-keyword post-title">复现 VAE</h1>
-        <span class="post-date">2024-07-31</span>
-    </div>
-    
-    <div class="post-header">
-        <span class="ui-tips">分类：</span>
-        
-        <a href="/categories/%E7%A7%91%E7%A0%94/">科研</a>
-        
-    </div>
-    
-    
-    <div class="post-header">
-        <span class="ui-tips">标签：</span>
-        
-        <a href="/tags/vae/">vae</a>
-        
-    </div>
-    
-    
-    <div class="post-content"><h1 id="复现变分自编码器vae">复现变分自编码器(<code>VAE</code>)</h1>
+<!DOCTYPE html><html lang="zh-CN"><head><meta charset="utf-8"><meta name="X-UA-Compatible" content="IE=edge"><meta name="author"><title>复现 VAE · paitsai</title><meta name="description" content="复现变分自编码器(VAE)
+代码地址
+VAE的核心思想
+相比于传统的编码器，VAE是通过引入隐变量Z来使用概率模型的生成模型。
+理想形态下的生成模型可以被描述为\(X^!=P(Z)\),Z是引入的隐变量。如果我们能够将输入样本X的一系列特征编码得到Z控制在已知的某个分布中，那么就能够在隐变量的分布空"><meta name="og:description" content="复现变分自编码器(VAE)
+代码地址
+VAE的核心思想
+相比于传统的编码器，VAE是通过引入隐变量Z来使用概率模型的生成模型。
+理想形态下的生成模型可以被描述为\(X^!=P(Z)\),Z是引入的隐变量。如果我们能够将输入样本X的一系列特征编码得到Z控制在已知的某个分布中，那么就能够在隐变量的分布空"><meta name="twitter:site" content="paitsai"><meta name="twitter:title" content="复现 VAE"><meta name="twitter:card" content="summary"><meta name="keywords" content=""><meta content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0" name="viewport"><meta content="yes" name="apple-mobile-web-app-capable"><meta content="black" name="apple-mobile-web-app-status-bar-style"><meta content="telephone=no" name="format-detection"><meta name="renderer" content="webkit"><link rel="short icon" href="images/favicon.png" type="image/x-icon"><link rel="stylesheet" href="/css/bootstrap.min.css"><link rel="stylesheet" href="/css/font-awesome.min.css"><link rel="stylesheet" href="/css/style.css"><link rel="alternate" type="application/atom+xml" title="ATOM 1.0" href="/atom.xml"><meta name="generator" content="Hexo 7.3.0"><link rel="stylesheet" href="/css/prism.css" type="text/css">
+<link rel="stylesheet" href="/css/prism-line-numbers.css" type="text/css"></head><body><div class="container" id="stage"><div class="row"><div class="col-sm-3 col-xs-12 side-container invisible" id="side-bar"><div class="vertical-text site-title"><h3 class="site-title-small" tabindex="-1"><a class="a-title" href="/">Typography</a></h3><h1 class="site-title-large" tabindex="-1"><a class="a-title" href="/">活版印字</a></h1><!--h6(onclick="triggerSiteNav()") Trigger--></div><br class="visible-lg visible-md visible-sm"><div class="site-title-links" id="site-nav"><ul><li><a href="/">首页</a></li><li><a href="/archives">归档</a></li><li><a href="/categories">分类</a></li><li><a href="/tags">标签</a></li><li><a href="/about/index.html">about</a></li><li><a href="/categories/index.html">categories</a></li><li class="soc"><a href="http://teriyaki.sbs/atom.xml" target="_blank" rel="noopener noreferrer" aria-label="RSS"><i class="fa fa-rss">&nbsp;</i></a></li></ul><div class="visible-lg visible-md visible-sm site-nav-footer"><br class="site-nav-footer-br"><footer><p>&copy;&nbsp;2024&nbsp;<a target="_blank" href="http://teriyaki.sbs" rel="noopener noreferrer">Paitsai</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div><div class="col-sm-9 col-xs-12 main-container invisible" id="main-container"><div class="autopagerize_page_element"><div class="content"><div class="post-page"><div class="post-container"><p class="post-title"><a>复现 VAE</a></p><p class="post-meta"><span class="date meta-item">发布于&nbsp;2024-07-31</span><span class="meta-item"><i class="fa fa-folder"></i><span>&nbsp;</span><a class="a-tag" href="/categories/科研/" title="科研">科研</a><span>&nbsp;</span></span><span class="meta-item"><i class="fa fa-tag"></i><span>&nbsp;</span><a class="a-tag" href="/tags/vae/" title="vae">vae</a><span>&nbsp;</span></span></p><p class="post-abstract"><h1 id="复现变分自编码器vae">复现变分自编码器(<code>VAE</code>)</h1>
 <p><a target="_blank" rel="noopener" href="https://github.com/paitsai/vae/">代码地址</a></p>
 <h2 id="vae的核心思想"><code>VAE</code>的核心思想</h2>
 <p>相比于传统的编码器，<code>VAE</code>是通过引入隐变量<code>Z</code>来使用概率模型的生成模型。</p>
@@ -87,23 +26,4 @@ class="math inline">\(X\)</span>之间的差距越小越好，也就是我们应
 <li><p>另一方面为了防止神经网络过拟合，我们需要极小化<span
 class="math inline">\(KL(P(X|Z),N(0,1))\)</span>来防止神经网络过拟合导致方差趋向0，模型退化为<code>AE</code>.</p></li>
 </ul>
-</div>
-</div>
-
-        </div>
-        <div class="footer">
-            
-            <p class="footer-links">
-            
-                <a target="_blank" href="https://tinkink.net">&copy; Tinkink</a>
-            
-            </p>
-            
-            <p class="footer-copyright">
-                <span>Powered by <a target="_blank" href="https://hexo.io">Hexo</a></span>
-                <span>Theme <a target="_blank" href="https://github.com/tinkink-co/hexo-theme-terminal">Terminal</a></span>
-            </p>
-        </div>
-    </div>
-</body>
-</html>
+</p></div><div class="share"><span>分享到</span>&nbsp;<span class="soc"><a class="fa fa-bookmark" href="javascript:(function(){EN_CLIP_HOST='http://www.evernote.com';try{var%20x=document.createElement('SCRIPT');x.type='text/javascript';x.src=EN_CLIP_HOST+'/public/bookmarkClipper.js?'+(new%20Date().getTime()/100000);document.getElementsByTagName('head')[0].appendChild(x);}catch(e){location.href=EN_CLIP_HOST+'/clip.action?url='+encodeURIComponent(location.href)+'&amp;title='+encodeURIComponent(document.title);}})();" ref="nofollow" target="_blank"></a></span><span class="soc"><a class="fa fa-weibo" href="javascript:void((function(s,d,e){try{}catch(e){}var f='http://service.weibo.com/share/share.php?',u=d.location.href,p=['url=',e(u),'&amp;title=',e(d.title),'&amp;appkey=2924220432'].join('');function a(){if(!window.open([f,p].join(''),'mb',['toolbar=0,status=0,resizable=1,width=620,height=450,left=',(s.width-620)/2,',top=',(s.height-450)/2].join('')))u.href=[f,p].join('');};if(/Firefox/.test(navigator.userAgent)){setTimeout(a,0)}else{a()}})(screen,document,encodeURIComponent));"></a></span><span class="soc"><a class="fa fa-twitter" target="_blank" rel="noopener" href="http://twitter.com/home?status=http://teriyaki.sbs/2024/07/31/vae复现/%20paitsai%20复现 VAE"></a></span></div><div class="pagination"><p class="clearfix"><span class="pre pagbuttons"><a role="navigation" href="/2024/08/01/torch%E5%AD%A6%E4%B9%A0/" title="torch学习"><i class="fa fa-angle-double-left"></i>&nbsp;上一篇: torch学习</a></span><span>&nbsp;</span><span class="next pagbuttons"><a role="navigation" href="/2024/07/31/hello-world/" title="hexo 基础使用">下一篇: hexo 基础使用&nbsp;<i class="fa fa-angle-double-right"></i></a></span></p></div></div></div></div><div class="visible-xs site-bottom-footer"><footer><p>&copy;&nbsp;2024&nbsp;<a target="_blank" href="http://teriyaki.sbs" rel="noopener noreferrer">Paitsai</a></p><p>Theme&nbsp;<a target="_blank" href="https://github.com/SumiMakito/hexo-theme-typography" rel="noopener noreferrer">Typography</a>&nbsp;by&nbsp;<a target="_blank" href="https://www.keep.moe" rel="noopener noreferrer">Makito</a></p><p>Proudly published with&nbsp;<a target="_blank" href="https://hexo.io" rel="noopener noreferrer">Hexo</a></p></footer></div></div></div></div><script src="/js/jquery-3.1.0.min.js"></script><script src="/js/bootstrap.min.js"></script><script src="/js/jquery-migrate-1.2.1.min.js"></script><script src="/js/jquery.appear.js"></script><script src="/js/google-analytics.js"></script><script src="/js/typography.js"></script></body></html>

@@ -1,0 +1,97 @@
+<?xml version="1.0" encoding="utf-8"?>
+<feed xmlns="http://www.w3.org/2005/Atom">
+  <title>paitsai</title>
+  
+  
+  <link href="http://teriyaki.sbs/atom.xml" rel="self"/>
+  
+  <link href="http://teriyaki.sbs/"/>
+  <updated>2024-08-01T19:47:21.516Z</updated>
+  <id>http://teriyaki.sbs/</id>
+  
+  <author>
+    <name>Paitsai</name>
+    
+  </author>
+  
+  <generator uri="https://hexo.io/">Hexo</generator>
+  
+  <entry>
+    <title>torch学习</title>
+    <link href="http://teriyaki.sbs/2024/08/01/torch%E5%AD%A6%E4%B9%A0/"/>
+    <id>http://teriyaki.sbs/2024/08/01/torch%E5%AD%A6%E4%B9%A0/</id>
+    <published>2024-08-01T18:16:47.000Z</published>
+    <updated>2024-08-01T19:47:21.516Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;回想一下深度学习训练模型的过程？深度学习中训练和验证过程最大的特点在于读入数据是按批的，每次读入一个批次的数据，放入GPU中训练，然后将损失函数反向传播回网络最前面的层，同时使用优化器调整网络参数。这里会涉及到各个模块配合的问题。训练/验证后还需要根据设定好的指标计算模型表</summary>
+        
+      
+    
+    
+    
+    <category term="技术" scheme="http://teriyaki.sbs/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="torch" scheme="http://teriyaki.sbs/tags/torch/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>复现 VAE</title>
+    <link href="http://teriyaki.sbs/2024/07/31/vae%E5%A4%8D%E7%8E%B0/"/>
+    <id>http://teriyaki.sbs/2024/07/31/vae%E5%A4%8D%E7%8E%B0/</id>
+    <published>2024-07-31T19:08:58.000Z</published>
+    <updated>2024-08-01T17:54:07.010Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;h1 id=&quot;复现变分自编码器vae&quot;&gt;复现变分自编码器(&lt;code&gt;VAE&lt;/code&gt;)&lt;/h1&gt;
+&lt;p&gt;&lt;a href=&quot;https://github.com/paitsai/vae/&quot;&gt;代码地址&lt;/a&gt;&lt;/p&gt;
+&lt;h2</summary>
+        
+      
+    
+    
+    
+    <category term="科研" scheme="http://teriyaki.sbs/categories/%E7%A7%91%E7%A0%94/"/>
+    
+    
+    <category term="vae" scheme="http://teriyaki.sbs/tags/vae/"/>
+    
+  </entry>
+  
+  <entry>
+    <title>hexo 基础使用</title>
+    <link href="http://teriyaki.sbs/2024/07/31/hello-world/"/>
+    <id>http://teriyaki.sbs/2024/07/31/hello-world/</id>
+    <published>2024-07-31T12:51:21.832Z</published>
+    <updated>2024-07-31T19:26:37.972Z</updated>
+    
+    
+      
+      
+        
+        
+    <summary type="html">&lt;p&gt;Welcome to &lt;a href=&quot;https://hexo.io/&quot;&gt;Hexo&lt;/a&gt;! This is your very
+first post. Check &lt;a href=&quot;https://hexo.io/docs/&quot;&gt;documentation&lt;/a&gt;</summary>
+        
+      
+    
+    
+    
+    <category term="技术" scheme="http://teriyaki.sbs/categories/%E6%8A%80%E6%9C%AF/"/>
+    
+    
+    <category term="hexo" scheme="http://teriyaki.sbs/tags/hexo/"/>
+    
+  </entry>
+  
+</feed>

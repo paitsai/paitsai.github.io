@@ -68,16 +68,24 @@
     </div>
     
     
-    <div class="post-content"><h1 id="复现变分自编码器-VAE"><a href="#复现变分自编码器-VAE" class="headerlink" title="复现变分自编码器(VAE)"></a>复现变分自编码器(<code>VAE</code>)</h1><p><a target="_blank" rel="noopener" href="https://github.com/paitsai/vae/">代码地址</a></p>
-<h2 id="VAE的核心思想"><a href="#VAE的核心思想" class="headerlink" title="VAE的核心思想"></a><code>VAE</code>的核心思想</h2><p>相比于传统的编码器，<code>VAE</code>是通过引入隐变量<code>Z</code>来使用概率模型的生成模型。</p>
-<p>理想形态下的生成模型可以被描述为$X^!&#x3D;P(Z)$,<code>Z</code>是引入的隐变量。如果我们能够将输入样本<code>X</code>的一系列特征编码得到<code>Z</code>控制在已知的某个分布中，那么就能够在隐变量的分布空间中采样解码得到生成内容$X^!$.</p>
-<p>AE将样本编码为离散的点, 而VAE将样本编码为概率分布, 直接点就是给隐变量添加噪声.</p>
-<p>那么在Decoder解码时, 从隐变量中随机采样, 得到采样后的向量作为Decoder的输入.</p>
-<h2 id="理论证明"><a href="#理论证明" class="headerlink" title="理论证明"></a>理论证明</h2><ul>
-<li><p>首先一方面我们希望生成的内容$X^!$和原始输入$X$之间的差距越小越好，也就是我们应该极小化<code>MSE(X!,X)</code>.</p>
-</li>
-<li><p>另一方面为了防止神经网络过拟合，我们需要极小化$KL(P(X|Z),N(0,1))$来防止神经网络过拟合导致方差趋向0，模型退化为<code>AE</code>.</p>
-</li>
+    <div class="post-content"><h1 id="复现变分自编码器vae">复现变分自编码器(<code>VAE</code>)</h1>
+<p><a target="_blank" rel="noopener" href="https://github.com/paitsai/vae/">代码地址</a></p>
+<h2 id="vae的核心思想"><code>VAE</code>的核心思想</h2>
+<p>相比于传统的编码器，<code>VAE</code>是通过引入隐变量<code>Z</code>来使用概率模型的生成模型。</p>
+<p>理想形态下的生成模型可以被描述为<span
+class="math inline">\(X^!=P(Z)\)</span>,<code>Z</code>是引入的隐变量。如果我们能够将输入样本<code>X</code>的一系列特征编码得到<code>Z</code>控制在已知的某个分布中，那么就能够在隐变量的分布空间中采样解码得到生成内容<span
+class="math inline">\(X^!\)</span>.</p>
+<p>AE将样本编码为离散的点, 而VAE将样本编码为概率分布,
+直接点就是给隐变量添加噪声.</p>
+<p>那么在Decoder解码时, 从隐变量中随机采样,
+得到采样后的向量作为Decoder的输入.</p>
+<h2 id="理论证明">理论证明</h2>
+<ul>
+<li><p>首先一方面我们希望生成的内容<span
+class="math inline">\(X^!\)</span>和原始输入<span
+class="math inline">\(X\)</span>之间的差距越小越好，也就是我们应该极小化<code>MSE(X!,X)</code>.</p></li>
+<li><p>另一方面为了防止神经网络过拟合，我们需要极小化<span
+class="math inline">\(KL(P(X|Z),N(0,1))\)</span>来防止神经网络过拟合导致方差趋向0，模型退化为<code>AE</code>.</p></li>
 </ul>
 </div>
 </div>

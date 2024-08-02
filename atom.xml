@@ -6,7 +6,7 @@
   <link href="http://teriyaki.sbs/atom.xml" rel="self"/>
   
   <link href="http://teriyaki.sbs/"/>
-  <updated>2024-08-02T18:38:10.335Z</updated>
+  <updated>2024-08-02T18:42:03.640Z</updated>
   <id>http://teriyaki.sbs/</id>
   
   <author>
@@ -21,16 +21,10 @@
     <link href="http://teriyaki.sbs/2024/08/01/torch%E5%AD%A6%E4%B9%A0/"/>
     <id>http://teriyaki.sbs/2024/08/01/torch%E5%AD%A6%E4%B9%A0/</id>
     <published>2024-08-01T18:16:47.000Z</published>
-    <updated>2024-08-02T18:38:10.335Z</updated>
+    <updated>2024-08-02T18:42:03.640Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;p&gt;回想一下深度学习训练模型的过程？深度学习中训练和验证过程最大的特点在于读入数据是按批的，每次读入一个批次的数据，放入GPU中训练，然后将损失函数反向传播回网络最前面的层，同时使用优化器调整网络参数。这里会涉及到各个模块配合的问题。训练/验证后还需要根据设定好的指标计算模型表</summary>
-        
-      
+    <summary type="html">Introduce tag plugins in freemind.</summary>
     
     
     
@@ -46,18 +40,10 @@
     <link href="http://teriyaki.sbs/2024/07/31/vae%E5%A4%8D%E7%8E%B0/"/>
     <id>http://teriyaki.sbs/2024/07/31/vae%E5%A4%8D%E7%8E%B0/</id>
     <published>2024-07-31T19:08:58.000Z</published>
-    <updated>2024-08-02T18:38:03.366Z</updated>
+    <updated>2024-08-02T18:42:22.970Z</updated>
     
     
-      
-      
-        
-        
-    <summary type="html">&lt;h1 id=&quot;复现变分自编码器vae&quot;&gt;复现变分自编码器(&lt;code&gt;VAE&lt;/code&gt;)&lt;/h1&gt;
-&lt;p&gt;&lt;a href=&quot;https://github.com/paitsai/vae/&quot;&gt;代码地址&lt;/a&gt;&lt;/p&gt;
-&lt;h2</summary>
-        
-      
+    <summary type="html">Introduce tag plugins in freemind.</summary>
     
     
     

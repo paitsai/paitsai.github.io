@@ -239,7 +239,7 @@ html,
 body {
   font-family: "Bad Script";
   font-size: 25px !important;
-  background-image: url("/background.jpg");
+  background-image: url("/background-anon.png");
   background-repeat: no-repeat;
   background-size: cover;
   height: 100%;

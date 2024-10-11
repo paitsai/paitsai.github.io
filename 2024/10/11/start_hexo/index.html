@@ -16,7 +16,7 @@
 
 
 
-<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/monokai-sublime.css">
+<link rel="stylesheet" id="highlight-link" href="/lib/highlight/style/railscasts.css">
 
 
 
@@ -96,7 +96,7 @@
           </select>
           <label for="highlight-select">Code highlight: </label>
           <select id="highlight-select">
-            <option value='monokai-sublime'>monokai-sublime</option>
+            <option value='railscasts'>railscasts</option>
           </select>
         </div>
       </div>
@@ -147,7 +147,7 @@
 <h3 id="部署在github-pages上"><a href="#部署在github-pages上" class="headerlink" title="部署在github pages上"></a>部署在github pages上</h3><p>新建 git 仓库，名称为：.github.io (好处是：通过<a target="_blank" rel="noopener" href="https://username.github.io/%E5%B0%B1%E5%8F%AF%E4%BB%A5%E8%AE%BF%E9%97%AE%E5%88%B0%E4%BD%A0%E7%9A%84%E4%BB%93%E5%BA%93/blog/project%E4%B8%BB%E9%A1%B5">https://username.github.io/就可以访问到你的仓库/blog/project主页</a>, 而不需要在 github.io&#x2F;后面再加上仓库名)</p>
 <p>安装插件：npm install hexo-deployer-git –save</p>
 <p>创建一个 SSH key：ssh-keygen -t -rsa -C “email address”</p>
-<p>将密钥添加到 github，验证是否添加成功：ssh -T <a href="mailto:&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#99;&#x6f;&#109;">&#x67;&#x69;&#x74;&#64;&#103;&#x69;&#116;&#x68;&#x75;&#98;&#46;&#99;&#x6f;&#109;</a></p>
+<p>将密钥添加到 github，验证是否添加成功：ssh -T <a href="mailto:&#103;&#105;&#116;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#x62;&#x2e;&#99;&#111;&#x6d;">&#103;&#105;&#116;&#64;&#x67;&#105;&#x74;&#104;&#x75;&#x62;&#x2e;&#99;&#111;&#x6d;</a></p>
 <figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 _config.yml 文件最后修改为：</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: git@github.com:LikeFrost/LikeFrost.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line"></span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
 
 

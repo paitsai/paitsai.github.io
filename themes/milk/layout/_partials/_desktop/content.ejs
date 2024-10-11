@@ -1,0 +1,41 @@
+<%# index page content %> 
+<ul>
+  <% page.posts.forEach(function(post){ %>
+    <%# split path %> 
+    <% _path = post.source; var path = _path.split('/'); %>
+    <li>
+      <%# navigation bar %> 
+      <ul class="breadcrumbs" id="post-source">
+        <li><a href="#"><i class="fas fa-file-word"></i></a></li>
+        <% for( let i = 1; i < path.length - 1; i++ ) { %>
+          <% var element = '<li><a href="#">' + path[i] + '</a></li>'; %>
+          <%- element %>
+        <% } %>
+        <% if (post.title == '') { %>
+          <% post.title = 'no-title'; %> 
+        <% } %>
+        <%-
+          '<li id="post-title"><a href="' 
+          + config.root + post.path + '" title="' + post.title + '">'
+          + truncate(post.title, {length: 15}) + '</a></li>'
+        %> 
+      </ul>
+      <%# article summary  %> 
+      <div class="post-table">
+        <table>
+          <tr>
+            <th></th>
+            <th>
+              <span class="table-title">File: <%- post.title %></span>
+              <span><%- date(post.date, "YYYY-MM-DD") %></span>
+            </th>
+          </tr>
+          <tr>
+            <td class="table-linenum" id="table-linenum">content</td>
+            <td><%- post.excerpt %></td>
+          </tr>
+        </table>
+      </div>
+    </li>
+  <% }); %>
+</ul>

@@ -1,0 +1,37 @@
+// header bar settings
+$header_access_max_width: 5%;
+$header_date_max_width: 30%;
+$header_height: 45px;
+$header_menu_max_width: 40%;
+$header_system_max_width: 25%;
+$milk_body_top: $header_height + 10px;
+$win_height: 60%;
+$win_hover_border_style: solid;
+$win_hover_border_width: 1px;
+$win_width: 55%;
+$content_width: 55%;
+// category settings
+$category_height: 50%;
+$category_width: 100% - $content_width;
+// tag settings
+$tag_width: $category_width;
+$tag_height: 100% - $category_height;
+// font settings
+$font_family: "Bad Script";
+$font_size: 25px;
+// archive settings
+$archive_width: 55%;
+// draggable settings
+$draggable_toc_border_width: 1px;
+$draggable_toc_max_width: 14%;
+$draggable_toc_min_width: 10%;
+// progress bar settings
+$progress_bar_height: 10px;
+// post table settings
+$post_table_border_width: 2px;
+$dropdown_content_min_width: 300px;
+// scroll to top style (back to top)
+$scroll2top_top: 50%;
+$scroll2top_left: 90%;
+$scroll2top_width: 100px;
+$scroll2top_height: 20px;

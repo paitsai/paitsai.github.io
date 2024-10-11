@@ -1,0 +1,61 @@
+<%# toc %>
+<div class="draggable-toc">
+  <div class="toc-title"><%- page.title %></div>
+  <p>process: <span>0</span></p>
+  <div class="progress-container">
+    <div class="progress-bar" id="bar"></div>
+  </div>
+  <%- toc(page.content, {list_number:false}) %>
+</div>
+<%# content %>
+<div class="post-content" id="post-content">
+  <div id="top"><%- page.title %></div>
+  <div class="post">
+    <%# categories  %>
+    <div class="content-categories">
+      <% if(page.categories){ %>
+      <i class="fas fa-location-arrow"></i>
+      <ul>
+        <li>categories</li>
+        <% page.categories.each(element => { %>
+          <li>&gt;</li>
+          <li>
+            <a href="<%= config.root %><%= element.path %>">
+          <%- element.name  %>
+        </a>
+          </li>
+      <% }) %>
+      </ul>
+    <% } %>
+    </div>
+    <hr>
+    <%# content %>
+    <%- page.content %>
+    <%# tags %>
+    <hr>
+    <div class="content-tags">
+      <% if(page.tags){ %>
+      <i class="fas fa-tags"></i>
+      <ul>
+        <% page.tags.each(element => { %>
+        <li><a href="<%= config.root %><%= element.path %>">
+          <%- element.name %>
+        </a></li>
+      <% }) %>
+      </ul>
+    <% } %>
+    </div>
+    <%# comment %>
+    <%- include('_partials/tools/comment.ejs') %>
+  </div>
+</div>
+<%# back to top %> 
+<div>
+  <div
+    id="sprite-container"
+    data-mouse-out-ani='<%= theme.scroll2top.mouse_out_ani %>'
+    data-mouse-hover-ani='<%= theme.scroll2top.mouse_hover_ani %>'
+    data-mouse-click-ani='<%= theme.scroll2top.mouse_click_ani %>'
+    >
+  </div>
+</div>

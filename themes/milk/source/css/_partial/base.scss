@@ -1,0 +1,89 @@
+* {
+  margin: 0;
+  padding: 0;
+  cursor: url("/cursor/normal.gif"), auto !important;
+}
+
+a:hover {
+  cursor: url("/cursor/link.gif"), auto !important;
+}
+
+button:hover {
+  cursor: url("/cursor/hand.gif"), auto !important;
+}
+
+a:active, button:active, input:active, select:active, textarea:active {
+  cursor: url("/cursor/wait.gif"), auto !important;
+}
+
+textarea, input {
+  cursor: url("/cursor/beam.gif"), auto !important;
+}
+
+html,
+body {
+  font-family: $font_family;
+  font-size: $font_size !important;
+  background-image: url("/background.jpg");
+  background-repeat: no-repeat;
+  background-size: cover;
+  height: 100%;
+}
+
+a {
+  text-decoration: none;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+img {
+  max-width: 100%;
+  margin: auto;
+  display: block;
+}
+
+ol,
+ul,
+dl {
+  list-style-type: none;
+}
+
+h1 {
+  text-align: center;
+}
+// (h_, margin, font-size)
+@each $level, $size, $margin in (h2, 20px, 20px), (h3, 18px, 15px), (h4, 16px, 10px), (h5, 14px, 5px), (h6, 12px, 0px) {
+  #{$level} {
+    margin: $margin;
+    &::before {
+      font-size: $size;
+      content: "#{$level}. ";
+    }
+  }
+}
+
+code {
+  padding: 0 3px;
+  font-size: 95%;
+  border: solid 1px;
+  border-radius: 0.3rem;
+}
+
+details {
+  border: solid 1px;
+  border-radius: 0.5rem;
+  margin: 5px;
+}
+
+.Tips {
+  position: fixed;
+  z-index: 99;
+  border-radius: 5px;
+  padding: 20px;
+  width: 100px;
+  font-size: $font_size;
+  text-align: center;
+  left: 50%;
+  top: 50%;
+}

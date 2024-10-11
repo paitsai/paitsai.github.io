@@ -1,0 +1,70 @@
+# html lang
+language: en
+
+title: Soyo 桑 拉布 🥰🥰🥰
+author: Paitsai Chihay 
+
+# index page navigation
+menu:
+  Home:
+    path: /
+    icon: fas fa-home
+  Archives:
+    path: /archives
+    icon: fas fa-archive
+  About:
+    path: /about
+    icon: fas fa-user-circle
+
+social:
+  github:
+    icon: fab fa-github-alt 
+    url: https://github.com/paitsai
+  gmail:
+    icon: fas fa-envelope
+    url: mailto:chuijih.hsiao@gmail.com
+
+# code highlight
+# highlight: railscasts
+highlight: monokai-sublime
+color_scheme: default
+
+# date style
+date:
+  format: dddd, MMMM Do YYYY, h:mm:ss a
+
+# show system information
+system: true
+
+# show article number
+show_count: false
+
+# show in index page
+cmd_category: "tree"
+cmd_tag: "dir"
+
+# LiveRe
+livere:
+  status: true
+  livere_data_uid: "MTAyMC80NjA4MS8yMjU5Mg=="
+
+# Valine
+valine:
+  status: true
+  appid: "5bHFwYPW2iHWCiV7WmNRSenk-gzGzoHsz"
+  appkey: "2q4UgVDTmeJf9Phe8VbnNKyC"
+
+# ChangYan
+changyan:
+  status: true
+  appid: "cyuGH4lBk"
+  appkey: "ae32d85e4ca99348209aedfd3ae01478"
+
+# scroll to top
+scroll2top:
+  mouse_out_ani: ['/2top/out_1.png']
+  mouse_hover_ani: ['/2top/hover_1.png', '/2top/hover_2.png']
+  mouse_click_ani: ['/2top/click_1.png', '/2top/click_2.png', '/2top/click_3.png']
+
+# layout
+layout: 'tile'

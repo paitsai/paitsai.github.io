@@ -12,7 +12,7 @@ tags:
 
 ### 首先你需要准备npm 、nodejs开发工具
 
-``` bash
+``` python
 apt update && apt upgrade
 apt install npm nodejs
 ```

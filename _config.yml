@@ -140,3 +140,27 @@ deploy:
     repo: https://github.com/paitsai/paitsai.github.io # 使用ssh连接
     branch: main # 默认master分支
     message: fix up myblog by chuijih hsiao   # 自动部署commit备注，可不填
+
+
+
+#  npm audit fix --force
+
+
+live2d:
+  enable: true
+  scriptFrom: local
+  pluginRootPath: live2dw/
+  pluginJsPath: lib/
+  pluginModelPath: assets/
+  tagMode: false
+  debug: false
+  model:
+    use: live2d-widget-model-koharu
+  display:
+    position: left
+    width: 150
+    height: 300
+  mobile:
+    show: true
+  react:
+    opacity: 0.5

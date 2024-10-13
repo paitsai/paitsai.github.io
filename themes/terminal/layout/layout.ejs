@@ -1,0 +1,64 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <%- css('styles/base.css') %>
+    <%- css('styles/theme.css') %>
+    <%- favicon_tag(config.favicon || theme.favicon) %>
+    <%
+        var title = '';
+        if (is_tag()) {
+            title = page.tag + ' - ' + __('common.tag');
+        } else if (is_category()) {
+            title = page.category + ' - ' + __('common.category');
+        }
+    %>
+    <title><%- title || (page&&page.title) || __('common.home') %> - <%- config.title %></title>
+    <% if (theme.google_analytics) { %>
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=<%-theme.google_analytics.tracking_id%>"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', '<%-theme.google_analytics.tracking_id%>');
+    </script>
+    <% } %>
+</head>
+<body>
+    <div class="header-title">
+        <span class="header-light"></span>
+        <span class="header-light"></span>
+        <span class="header-light"></span>
+        <span><%- config.title %> <%- config.url.replace(/https?:\/\//, '')%><span>
+    </div>
+    <div class="container">
+        <ul class="nav">
+        <%
+            if(!theme.menus) theme.menus = {[__('common.home')]: '/'};
+            for ( menu in theme.menus ) { %>
+            <li><a href="<%- theme.menus[menu] %>"><%- menu %></a></li>
+        <% } %>
+        </ul>
+        <div class="content">
+            <%- body %>
+        </div>
+        <div class="footer">
+            <% if (theme.footers && Object.keys(theme.footers).length) {%>
+            <p class="footer-links">
+            <% for ( foot in theme.footers ) { %>
+                <a target="_blank" href="<%- theme.footers[foot] %>"><%- foot%></a>
+            <% } %>
+            </p>
+            <% } %>
+            <p class="footer-copyright">
+                <span>Powered by <a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <span>Theme <a target="_blank" href="https://github.com/tinkink-co/hexo-theme-terminal">Terminal</a></span>
+            </p>
+        </div>
+    </div>
+</body>
+</html>

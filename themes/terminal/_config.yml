@@ -1,0 +1,17 @@
+title: Terminal Theme for Hexo
+
+author: chuijih.hsiao
+
+
+
+theme_config:
+  menus:
+    首页: /
+    月度报告: /categories/
+    标签: /tags/
+    关于: /about/
+  favicon: '/favicon.png'
+  footers:
+    '&copy; Tinkink': 'https:/github.com/paitsai'
+  google_analytics:
+    tracking_id: G-XXXXXXXXX

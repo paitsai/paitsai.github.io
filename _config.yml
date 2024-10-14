@@ -144,8 +144,17 @@ deploy:
 
 
 #  npm audit fix --force
-
-
+# MathJax
+mathjax:
+  tags: none # or 'ams' or 'all'
+  single_dollars: true # enable single dollar signs as in-line math delimiters
+  cjk_width: 0.9 # relative CJK char width
+  normal_width: 0.6 # relative normal (monospace) width
+  append_css: true # add CSS to pages rendered by MathJax
+  every_page: false # if true, every page will be rendered by MathJax regardless the `mathjax` setting in Front-matter
+  packages: # extra packages to load
+  extension_options: {}
+    # you can put your extension options here
 live2d:
   enable: true
   scriptFrom: local
@@ -163,4 +172,4 @@ live2d:
   mobile:
     show: true
   react:
-    opacity: 0.5
+    opacity: 0.75

@@ -61,12 +61,12 @@ mathjax: true
 $$
 \hat{x}_{a}(t)=\Sigma_{n=-\infty}^{+\infty}x_{a}(t)\delta(t-nT)
 $$
-（注意：时域上离散的信号，频域上是周期的
+（注意：时域上离散的信号，频域上是周期的。这样的采样过程就类似于我们使用3D高斯分布、三角面元这样的操作对3D世界也是相当于一种采样
 
 总所周知，时域采样等价于频域延拓，直接给出对应的频谱：
 
 $$
-
+\hat{X}_{a}(j\Omega)=\frac{1}{T}\Sigma_{n=-\infty}^{+\infty}X_{a}(j\Omega-jn\frac{2\pi}{T})
 $$
 
 

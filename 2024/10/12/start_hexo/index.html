@@ -1,0 +1,107 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    
+<link rel="stylesheet" href="/styles/base.css">
+
+    
+<link rel="stylesheet" href="/styles/theme.css">
+
+    <link rel="shortcut icon" href="/favicon.png">
+    
+    <title>搭建博客流程 - Hexo</title>
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-XXXXXXXXX"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag() { dataLayer.push(arguments); }
+        gtag('js', new Date());
+
+        gtag('config', 'G-XXXXXXXXX');
+    </script>
+    
+<meta name="generator" content="Hexo 7.3.0"></head>
+<body>
+    <div class="header-title">
+        <span class="header-light"></span>
+        <span class="header-light"></span>
+        <span class="header-light"></span>
+        <span>Hexo paitsai.github.io<span>
+    </div>
+    <div class="container">
+        <ul class="nav">
+        
+            <li><a href="/">首页</a></li>
+        
+            <li><a href="/about/">关于</a></li>
+        
+        </ul>
+        <div class="content">
+            <div class="post-container">
+    <div class="post-header">
+        <span class="ui-tips">标题：</span>
+        <h1 class="ui-keyword post-title">搭建博客流程</h1>
+        <span class="post-date">2024-10-12</span>
+    </div>
+    
+    <div class="post-header">
+        <span class="ui-tips">分类：</span>
+        
+        <a href="/categories/%E5%B7%A5%E7%A8%8B/">工程</a>
+        
+    </div>
+    
+    
+    <div class="post-header">
+        <span class="ui-tips">标签：</span>
+        
+        <a href="/tags/%E7%8E%AF%E5%A2%83%E9%85%8D%E7%BD%AE/">环境配置</a>
+        
+        <a href="/tags/blog/">blog</a>
+        
+        <a href="/tags/hexo/">hexo</a>
+        
+    </div>
+    
+    
+    <div class="post-content"><h2 id="quick-start">Quick Start</h2>
+<h3 id="首先你需要准备npm-nodejs开发工具">首先你需要准备npm
+、nodejs开发工具</h3>
+<figure class="highlight python"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br></pre></td><td class="code"><pre><span class="line">apt update &amp;&amp; apt upgrade</span><br><span class="line">apt install npm nodejs</span><br></pre></td></tr></table></figure>
+<h3 id="初始化hexo项目">初始化hexo项目</h3>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br></pre></td><td class="code"><pre><span class="line">npm install hexo-cli -g</span><br><span class="line"><span class="built_in">mkdir</span> myblog &amp;&amp; <span class="built_in">cd</span> myblog</span><br><span class="line">hexo init</span><br><span class="line">npm install</span><br></pre></td></tr></table></figure>
+<h3 id="选择主题">选择主题</h3>
+<p>从hexo官方<a
+target="_blank" rel="noopener" href="https://hexo.io/themes/">主题仓库</a>中选择自己喜欢的主题即可！</p>
+<h3 id="部署在github-pages上">部署在github pages上</h3>
+<p>新建 git 仓库，名称为：.github.io
+(好处是：通过https://username.github.io/就可以访问到你的仓库/blog/project主页,
+而不需要在 github.io/后面再加上仓库名)</p>
+<p>安装插件：npm install hexo-deployer-git --save</p>
+<p>创建一个 SSH key：ssh-keygen -t -rsa -C "email address"</p>
+<p>将密钥添加到 github，验证是否添加成功：ssh -T git@github.com</p>
+<figure class="highlight bash"><table><tr><td class="gutter"><pre><span class="line">1</span><br><span class="line">2</span><br><span class="line">3</span><br><span class="line">4</span><br><span class="line">5</span><br><span class="line">6</span><br><span class="line">7</span><br><span class="line">8</span><br></pre></td><td class="code"><pre><span class="line"><span class="comment"># 在 _config.yml 文件最后修改为：</span></span><br><span class="line">deploy:</span><br><span class="line">  <span class="built_in">type</span>: git</span><br><span class="line">  repo: git@github.com:LikeFrost/LikeFrost.github.io.git</span><br><span class="line">  branch: master</span><br><span class="line"></span><br><span class="line">  <span class="keyword">then</span></span><br><span class="line">hexo deploy</span><br></pre></td></tr></table></figure>
+</div>
+</div>
+
+        </div>
+        <div class="footer">
+            
+            <p class="footer-links">
+            
+                <a target="_blank" href="https:/github.com/paitsai">&copy; Tinkink</a>
+            
+            </p>
+            
+            <p class="footer-copyright">
+                <span>Powered by <a target="_blank" href="https://hexo.io">Hexo</a></span>
+                <span>Theme <a target="_blank" href="https://github.com/tinkink-co/hexo-theme-terminal">Terminal</a></span>
+            </p>
+        </div>
+    </div>
+<script src="/live2dw/lib/L2Dwidget.min.js?094cbace49a39548bed64abff5988b05"></script><script>L2Dwidget.init({"pluginRootPath":"live2dw/","pluginJsPath":"lib/","pluginModelPath":"assets/","tagMode":false,"debug":false,"model":{"jsonPath":"/live2dw/assets/koharu.model.json"},"display":{"position":"left","width":150,"height":300},"mobile":{"show":true},"react":{"opacity":0.75},"log":false});</script></body>
+</html>

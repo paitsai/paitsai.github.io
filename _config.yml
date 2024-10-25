@@ -118,7 +118,7 @@ ignore:
 ## Themes: https://hexo.io/themes/
 # theme: landscape
 # theme: milk
-theme: terminal
+theme: next
 
 
 theme_config:

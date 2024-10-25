@@ -19,6 +19,11 @@
     {% set container_class = container_class + 'sidebar-position-' + theme.sidebar.position %}
   {% endif %}
 
+  {% if theme.click %}
+  <canvas class="click" style="position: fixed;left: 0;top: 0;z-index: 1; pointer-events: none;" ></canvas> 
+  <script type="text/javascript" src="/js/src/fireworks.js"></script>
+  {% endif %}
+
   <div class="{{ container_class }} {% block page_class %}{% endblock %}">
     <div class="headband"></div>
 
@@ -88,5 +93,10 @@
   {% include '_third-party/mathjax.swig' %}
   {% include '_third-party/scroll-cookie.swig' %}
   {% include '_third-party/exturl.swig' %}
+  <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/sakura.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/canvas-nest.min.js"></script>
+  <script src="https://cdn.jsdelivr.net/gh/wallleap/cdn/js/piao.js"></script>
+
+
 </body>
 </html>

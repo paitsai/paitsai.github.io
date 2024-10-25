@@ -42,6 +42,8 @@ keywords: "Hexo, NexT"
 # Set rss to specific value if you have burned your feed already.
 rss:
 
+cursor_effect: fireworks
+
 footer:
   # Specify the date when the site was setup.
   # If not defined, current year will be used.
@@ -54,7 +56,7 @@ footer:
   copyright:
   # -------------------------------------------------------------
   # Hexo link (Powered by Hexo).
-  powered: true
+  powered: false
 
   theme:
     # Theme & scheme info link (Theme - NexT.scheme).
@@ -92,11 +94,11 @@ index_with_subtitle: false
 # Value before `||` delimeter is the target link.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, question icon will be loaded.
 menu:
-  home: / || home
-  about: /about/ || user
-  tags: /tags/ || tags
-  categories: /categories/ || th
-  archives: /archives/ || archive
+  home: /|| home
+  about: /about/|| user
+  tags: /tags/|| tags
+  categories: /categories/|| th
+  archives: /archives/|| archive
   #schedule: /schedule/ || calendar
   #sitemap: /sitemap.xml || sitemap
   #commonweal: /404/ || heartbeat
@@ -111,10 +113,10 @@ menu_icons:
 # ---------------------------------------------------------------
 
 # Schemes
-scheme: Muse
+# scheme: Muse
 #scheme: Mist
 #scheme: Pisces
-#scheme: Gemini
+scheme: Gemini
 
 
 # ---------------------------------------------------------------
@@ -126,11 +128,11 @@ scheme: Muse
 # Key is the link label showing to end users.
 # Value before `||` delimeter is the target permalink.
 # Value after `||` delimeter is the name of FontAwesome icon. If icon (with or without delimeter) is not specified, globe icon will be loaded.
-#social:
-  #GitHub: https://github.com/yourname || github
-  #E-Mail: mailto:yourname@gmail.com || envelope
+social:
+  GitHub: https://github.com/paitsai || github
+  E-Mail: mailto:ryuuka917@yahoo.com || envelope
   #Google: https://plus.google.com/yourname || google
-  #Twitter: https://twitter.com/yourname || twitter
+  Twitter: https://x.com/chuijih || twitter
   #FB Page: https://www.facebook.com/yourname || facebook
   #VK Group: https://vk.com/yourname || vk
   #StackOverflow: https://stackoverflow.com/yourname || stack-overflow
@@ -154,7 +156,23 @@ links_layout: block
 # Sidebar Avatar
 # in theme directory(source/images): /images/avatar.gif
 # in site  directory(source/uploads): /uploads/avatar.gif
-#avatar: /images/avatar.gif
+avatar: /images/sakiko.jpg
+
+# busuanzi_count:
+#   enable: true  # false---ture
+#   total_visitors: true
+#   total_visitors_icon: fa fa-user
+#   total_views: true
+#   total_views_icon: fa fa-eye
+#   post_views: true
+#   post_views_icon: fa fa-eye
+
+
+# avatar:
+#   url: /images/sakiko.jpg
+#   rounded: true
+#   rotated: true
+
 
 # Table Of Contents in the Sidebar
 toc:
@@ -171,6 +189,19 @@ toc:
 # Available: by | by-nc | by-nc-nd | by-nc-sa | by-nd | by-sa | zero
 #creative_commons: by-nc-sa
 #creative_commons:
+creative_commons:
+  license: by-nc-sa
+  sidebar: false
+  post: true  # true 默认显示版权信息, false 默认不显示
+  language:
+
+back2top:
+  enable: true
+  # Back to top in sidebar.
+  sidebar: false
+  # Scroll percent label in b2t button.
+  scrollpercent: true
+
 
 sidebar:
   # Sidebar Position, available value: left | right (only for Pisces | Gemini).
@@ -273,6 +304,9 @@ custom_logo:
   enabled: false
   image:
 
+custom_file_path:
+    bodyEnd: source/_data/body-end.swig
+
 # Code Highlight theme
 # Available value:
 #    normal | night | night eighties | night blue | night bright
@@ -293,7 +327,7 @@ highlight_theme: normal
 # Arial | Tahoma | Helvetica | Times New Roman | Courier New | Verdana | Georgia | Palatino | Garamond | Comic Sans MS | Trebuchet MS
 # ---------------------------------------------------------------
 font:
-  enable: false
+  enable: true
 
   # Uri of fonts host. E.g. //fonts.googleapis.com (Default).
   host:
@@ -306,15 +340,15 @@ font:
   # Global font settings used on <body> element.
   global:
     external: true
-    family: Lato
-    size:
+    family: Ma Shan Zheng
+    size: 16
 
   # Font settings for Headlines (h1, h2, h3, h4, h5, h6).
   # Fallback to `global` font settings.
   headings:
     external: true
     family:
-    size:
+    size: 18
 
   # Font settings for posts.
   # Fallback to `global` font settings.
@@ -549,7 +583,7 @@ firestore:
 # Get more information on http://ibruce.info/2015/04/04/busuanzi/
 busuanzi_count:
   # count values only if the other configs are false
-  enable: false
+  enable: true
   # custom uv span for the whole site
   site_uv: true
   site_uv_header: <i class="fa fa-user"></i>
@@ -675,7 +709,7 @@ motion:
 fancybox: true
 
 # Progress bar in the top during page loading.
-pace: false
+pace: true
 # Themes list:
 #pace-theme-big-counter
 #pace-theme-bounce

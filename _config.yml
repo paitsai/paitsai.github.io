@@ -3,12 +3,12 @@
 ## Source: https://github.com/hexojs/hexo/
 
 # Site
-title: Hexo
+title: Ryuuka917 の blog
 subtitle: ''
 description: ''
 keywords:
-author: John Doe
-language: en
+author: Paitsai
+language: zh-CN
 timezone: ''
 categories: blog
 
@@ -89,6 +89,10 @@ default_category: uncategorized
 category_map:
 tag_map:
 
+custom_file_path:
+  bodyEnd: source/_data/body-end.swig
+  style: source/_data/styles.styl
+
 # Metadata elements
 ## https://developer.mozilla.org/en-US/docs/Web/HTML/Element/meta
 meta_generator: true
@@ -121,17 +125,17 @@ ignore:
 theme: next
 
 
-theme_config:
-  menus:
-    首页: /
-    # 月度报告: /categories/
-    # 标签: /tags/
-    关于: /about/
-  favicon: '/favicon.png'
-  footers:
-    '&copy; Tinkink': 'https:/github.com/paitsai'
-  google_analytics:
-    tracking_id: G-XXXXXXXXX
+# theme_config:
+#   menus:
+#     首页: /
+#     # 月度报告: /categories/
+#     # 标签: /tags/
+#     关于: /about/
+#   favicon: '/favicon.png'
+#   footers:
+#     '&copy; Tinkink': 'https:/github.com/paitsai'
+#   google_analytics:
+#     tracking_id: G-XXXXXXXXX
 
 # Deployment
 ## Docs: https://hexo.io/docs/one-command-deployment
@@ -173,3 +177,16 @@ live2d:
     show: true
   react:
     opacity: 0.75
+
+
+local_search:
+  enable: true
+  trigger: auto
+  top_n_per_article: 1
+  unescape: false
+  preload: false
+
+back2top:
+    enable: true
+    sidebar: true
+    scrollpercent: true

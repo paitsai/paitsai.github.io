@@ -5,6 +5,15 @@
 // Import _posts if want to justify text-align on mobile.
 //@import "../Pisces/_posts";
 
+
+body {
+  background:url(/images/background.jpg);
+  background-attachment: fixed;
+}
+
+
+
+
 // =================================================
 // Rewrite _layout.styl
 // =================================================
@@ -21,6 +30,32 @@
 // Read values from NexT config and set they as local variables to use as string variables (in any CSS section).
 hexo-config('sidebar.offset') is a 'unit' ? (sboffset = unit(hexo-config('sidebar.offset'), px)) : (sboffset = 0)
 use_seo = hexo-config('seo');
+
+
+
+.content-wrap {
+  opacity: 0.9;
+}
+
+//侧边框的透明度设置
+.sidebar {
+  opacity: 0.9;
+}
+
+//菜单栏的透明度设置
+.header-inner {
+  background: rgba(255,255,255,0.9);
+}
+
+//搜索框（local-search）的透明度设置
+.popup {
+  opacity: 0.9;
+}
+
+
+
+
+
 
 // =================================================
 // Desktop layout styles.

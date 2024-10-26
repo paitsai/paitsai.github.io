@@ -1,11 +1,12 @@
 ---
 title: Guassian_Splatting 学习
-date: 2024-10-12 02:06:22
 categories: 学术
 tags:
-- 计算机视觉
-- 3D渲染
+  - 计算机视觉
+  - 3D渲染
 mathjax: true
+abbrlink: 6b773604
+date: 2024-10-12 02:06:22
 ---
 
 提出`Guassian-Splatting`的原因正是为了解决【三维重建问题】

@@ -2,9 +2,10 @@
 title: 搭建博客流程
 categories: 工程
 tags:
-- 环境配置
-- blog
-- hexo
+  - 环境配置
+  - blog
+  - hexo
+abbrlink: 52230dfe
 ---
 
 

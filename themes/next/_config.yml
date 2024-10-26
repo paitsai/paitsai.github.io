@@ -12,7 +12,7 @@
 
 # Set to true, if you want to fully override the default configuration.
 # Useful if you don't want to inherit the theme _config.yml configurations.
-override: false
+override: true
 
 # ---------------------------------------------------------------
 # Site Information Settings
@@ -191,7 +191,7 @@ toc:
 #creative_commons:
 creative_commons:
   license: by-nc-sa
-  sidebar: false
+  sidebar: true
   post: true  # true 默认显示版权信息, false 默认不显示
   language:
 
@@ -306,12 +306,13 @@ custom_logo:
 
 custom_file_path:
     bodyEnd: source/_data/body-end.swig
+    style: source/_data/styles.styl
 
 # Code Highlight theme
 # Available value:
 #    normal | night | night eighties | night blue | night bright
 # https://github.com/chriskempson/tomorrow-theme
-highlight_theme: normal
+highlight_theme: night blue
 
 
 # ---------------------------------------------------------------
@@ -340,8 +341,8 @@ font:
   # Global font settings used on <body> element.
   global:
     external: true
-    family: Ma Shan Zheng
-    size: 16
+    family: Delius
+    size: 19
 
   # Font settings for Headlines (h1, h2, h3, h4, h5, h6).
   # Fallback to `global` font settings.
@@ -381,7 +382,7 @@ mathjax:
   cdn: //cdn.bootcss.com/mathjax/2.7.1/latest.js?config=TeX-AMS-MML_HTMLorMML
 
 # Han Support docs: https://hanzi.pro/
-han: false
+han: true
 
 # Swiftype Search API Key
 #swiftype_key:
@@ -662,7 +663,7 @@ note:
   #  - modern    bs-callout new (v2-v3) alert style.
   #  - flat      flat callout style with background, like on Mozilla or StackOverflow.
   #  - disabled  disable all CSS styles import of note tag.
-  style: simple
+  style: modern
   icons: false
   border_radius: 3
   # Offset lighter of background in % for modern and flat styles (modern: -12 | 12; flat: -18 | 6).

@@ -289,10 +289,10 @@ aside:
       enable: true
       icon: fab fa-github
       text: Follow Me
-      link: https://github.com/xxxxxx
+      link: https://github.com/paitsai
   card_announcement:
     enable: true
-    content: This is my Blog
+    content: 记得练吉他！记得练吉他！记得练吉他！记得看论文！记得看论文！记得看论文！
   card_recent_post:
     enable: true
     # If set 0 will show all
@@ -839,8 +839,8 @@ beautify:
 font:
   global_font_size: 
   code_font_size: 
-  font_family: 
-  code_font_family: 
+  font_family: CascadiaCodePL
+  code_font_family: CascadiaCodePL
 
 # Font settings for the site title and site subtitle
 blog_title_font:
@@ -867,20 +867,14 @@ activate_power_mode:
 
 # canvas_ribbon
 # See: https://github.com/hustcc/ribbon.js
-canvas_ribbon:
+canvas_fluttering_ribbon:
   enable: true
-  # The size of ribbon
-  size: 150
-  # The opacity of ribbon (0 ~ 1)
-  alpha: 0.6
-  zIndex: -1
-  click_to_change: true
-  mobile: true
+  mobile: true # false 手机端不显示 true 手机端显示
 
 # Fluttering Ribbon
-canvas_fluttering_ribbon:
-  enable: false
-  mobile: false
+# canvas_fluttering_ribbon:
+#   enable: false
+#   mobile: false
 
 # canvas_nest
 # https://github.com/hustcc/canvas-nest.js
@@ -1076,8 +1070,10 @@ css_prefix: true
 inject:
   head:
     - <link rel="stylesheet" href="/css/universe.css">
+    - <link rel="stylesheet" href="/css/font.css">
     # - <link rel="stylesheet" href="/xxx.css">
   bottom:
+    # - <script src="/js/githubcalendar.js"></script>
     - <canvas id="universe"></canvas>
     - <script src="/js/leaves.js"></script>
     - <script src="/js/universe.js"></script>
@@ -1167,3 +1163,31 @@ CDN:
     # valine:
     # waline_css:
     # waline_js:
+
+
+# hexo-butterfly-categories-card
+# see https://akilar.top/posts/a9131002/
+categoryBar:
+  enable: true # 开关
+  priority: 5 #过滤器优先权
+  enable_page: / # 应用页面
+  layout: # 挂载容器类型
+    type: id
+    name: recent-posts
+    index: 0
+  column: odd # odd：3列 | even：4列
+  row: 1 #显示行数，默认两行，超过行数切换为滚动显示
+  message:
+    - descr: Tomorin
+      cover: https://npm.elemecdn.com/akilar-candyassets/image/cover1.webp
+    - descr: Anon
+      cover: https://npm.elemecdn.com/akilar-candyassets/image/cover2.webp
+    - descr: Soyorin
+      cover: https://npm.elemecdn.com/akilar-candyassets/image/cover3.webp
+    - descr: Takki
+      cover: https://npm.elemecdn.com/akilar-candyassets/image/cover4.webp
+    - descr: Sakiko
+      cover: https://npm.elemecdn.com/akilar-candyassets/image/cover5.webp
+    - descr: Mutsumi
+      cover: https://npm.elemecdn.com/akilar-candyassets/image/cover6.webp
+  custom_css: https://npm.elemecdn.com/hexo-butterfly-categories-card@1.0.0/lib/categorybar.css

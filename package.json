@@ -12,8 +12,10 @@
     "version": "7.3.0"
   },
   "dependencies": {
+    "@barry-flynn/hexo-github-calendar": "^1.0.4",
     "hexo": "^7.3.0",
     "hexo-abbrlink": "^2.2.1",
+    "hexo-butterfly-categories-card": "^1.0.0",
     "hexo-butterfly-clock-anzhiyu": "^1.1.8",
     "hexo-deployer-git": "^4.0.0",
     "hexo-excerpt": "^1.3.1",

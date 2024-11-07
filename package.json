@@ -13,6 +13,7 @@
   },
   "dependencies": {
     "@barry-flynn/hexo-github-calendar": "^1.0.4",
+    "body-parser": "^1.20.3",
     "hexo": "^7.3.0",
     "hexo-abbrlink": "^2.2.1",
     "hexo-butterfly-categories-card": "^1.0.0",

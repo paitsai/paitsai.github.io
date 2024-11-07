@@ -1,0 +1,127 @@
+---
+title: 一个有趣的数学题
+mathjax: true
+categories: 算法
+tags:
+  - 刷题记录
+abbrlink: '36e56330'
+date: 2024-11-06 17:06:41
+---
+
+
+
+# 记录最近遇到的一个关于排列与图论（？的算法题
+
+## 【题目简述】
+
+定义一个$1\to n$的排列$S$为简洁，当且仅当$\forall i \in [1,n]$均满足：$S[i] =i\quad or \quad S[S[i]]=i.$
+
+现在给你一个任意的$1\to n$的排列$T$,每一秒你可以交换其中任意两个元素的位置。试在最少的时间内把这个排列变得简洁，并且给出最少的步数。
+
+
+[->【原题链接】<- ](https://codeforces.com/contest/2033/problem/E)
+
+
+<center>
+<img src="/pics/cfper.png">
+</center>
+
+## 一些分析
+
+### 图从何而来？
+
+由于这是一个$1\to n$的排列$T$，所以$1\to n$每个元素都会且只会出现一个，同理$1\to n$作为下标也只会出现一次；基于这点启发我们可以构造这样一个图：
+
+> 这个图有编号依次为$1\to n$的n个节点，如果有$T[i]=j$那么我们就添加一条从$i$到$j$的有向边。
+
+因为$1\to n$每个元素都会且只会出现一个，同理$1\to n$作为下标也只会出现一次，所以不难有每个点都只有一个入度和一个出度，也就是说这个这个图会由一系列简单的环组成。可以参考下面这个例子：
+
+
+<center>
+<img src="/pics/figure1.jpg">
+</center>
+
+> 事已至此，我们不难发现：$T[i]=i$在图中代表的就是一个点到自己的自环；
+$T[T[i]]=i$对应的就是只有两个点彼此连接的环；所以我们的目标就变成了找到所有大于两个元素的环，然后把他们拆解为一系列两点环或者自环即可；
+
+
+### 一次交换操作会对图产生什么影响？
+
+我们还是按照上面的例子来做一个说明，如果我们对一个元素个数大于3的环做一次交换操作，那么我们可以做到从这个环里面拆出两点组成一个小环（这个小环）就对于情形2；最后面可能剩下1个或2个点都是能够满足条件的。
+
+所以我们的策略已经呼之欲出力！找到所有元素个数为m大于2的环，把他交换$\lfloor \frac{m-1}{2}\rfloor$次即可；我们算法层面需要实现的就是找到所有环即可，不做赘述，请看代码；
+
+<center>
+<img src="/pics/figure2.jpg">
+</center>
+
+```cpp
+#include <bits/stdc++.h>
+using namespace	std;
+#define MAX_LEN 1000005
+ 
+int	main(void)
+{
+	int case_num, array_length, arr[MAX_LEN];
+	cin >> case_num;
+ 
+	for (int ii = 0; ii < case_num; ii++)
+	{
+		cin >> array_length;
+		bool used[array_length];
+		fill(used, used + array_length, false);
+		int ans = 0;
+		vector<int> loops;
+		for (int jj = 0; jj < array_length; jj++)
+		{
+			cin >> arr[jj];
+		}
+ 
+		int turns = 0;
+		int start;
+		for (int kk = 0; kk < array_length; kk++)
+		{
+			turns = 0;
+			if (used[kk])
+			{
+				continue ;
+			}
+			else
+			{
+				used[kk] = true;
+				turns++;
+				start = arr[kk] - 1;
+ 
+				while (!used[start])
+				{
+					used[start] = true;
+					turns++;
+					start = arr[start] - 1;
+				}
+				loops.push_back(turns);
+			}
+		}
+		for (int i : loops)
+		{
+			ans += (i - 1) / 2;
+			// cout << "loops has " << i << " nodes\n";
+		}
+ 
+		cout << ans << endl;
+	}
+ 
+	return (0);
+}
+```
+
+<center>
+<img src="/pics/pass1.png">
+</center>
+
+<div style="font-size: 48px; font-weight: bold; color: purple; text-align: center;">
+    Accepted!!!
+</div>
+
+<center>
+<img src="/pics/soyo.jpg">
+</center>

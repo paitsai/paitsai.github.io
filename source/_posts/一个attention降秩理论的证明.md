@@ -102,5 +102,71 @@ $$
 res(\mathcal{X})=\mathcal{X}-1x^T，where \quad x=argmin_{x}\|\mathcal{X}-1x^T \|
 $$
 
-不难验证，一个矩阵如果越越接近于秩①矩阵的话残差是越小的。
+不难验证，一个矩阵如果越越接近于秩①矩阵的话残差是越小的。并且从残差的定义来看（$x$的任意性），偏置项$b_O$是不会影响残差大小的。
 
+### 先来看单个头的单层注意力的情况
+
+对于单个头的一层注意力
+
+$$
+\mathcal{X}^{\prime}=SA(x)=P\mathcal{X}W_V
+$$
+
+我们先来证明如下结论：
+
+$$
+\|res(SA(\mathcal{X}))\|_{1,\infty}\leq 
+\dfrac{4\gamma\|W_{QK}\|_{1} \|W_V\|_{1,\infty}}{\sqrt{d_{qk}}}\|res(\mathcal{X})\|_{1,\infty}^{3}
+$$
+
+其中$\gamma$是一个常量；
+
+由之前`(2)`式子的推导我们有：
+
+$$
+P(\mathcal{X})=\text{softmax}\left(d_{qk}^{-\frac{1}{2}} \left(\mathcal{X}W_{QK,h}\mathcal{X}^{T} + 1b_{Q,h}^{T}W_{K,h}^{T}\mathcal{X}^{T}\right)\right)
+$$
+
+我们引入记号$\mathcal{A},\mathcal{R},\mathcal{R^{\prime}}$，其中：
+
+$$
+\begin{align}
+\mathcal{A}&=\mathcal{X}W_{QK}\mathcal{X}^T+1b_{QK}^{T}\mathcal{X}^T\\
+\mathcal{R} &:= res(\mathcal{X})\\
+\mathcal{R^{\prime}}&:=res(\mathcal{X}^{\prime})
+\end{align}
+$$
+
+从而我们的注意力矩阵$\mathcal{A}$可以改写为：
+
+$$
+\begin{align}
+\mathcal{A}&=(1x^T+\mathcal{R})\dfrac{W_{QK}}{\sqrt{d_{qk}}}(1x^T+\mathcal{R})^T+1b_{QK}^{T}(1x^T+\mathcal{R})^T\\
+&=(1x^T\dfrac{W_{QK}}{\sqrt{d_{qk}}}x+\mathcal{R}\dfrac{W_{QK}}{\sqrt{d_{qk}}}x+1b_{QK}^{T}x)1^T + (1x^T+\mathcal{R})\dfrac{W_{QK}}{\sqrt{d_{qk}}} + 1b_{QK}^T\mathcal{R}^T\\
+\end{align}
+$$
+
+我们再一次使用$\mathcal{softmax}$的平移不变的运算特性，可以得到：
+
+$$
+\begin{align}
+P&=softmax(\mathcal{R}\dfrac{W_{QK}}{\sqrt{d_{qk}}}\mathcal{R}^T+1r^T)\\
+r&:=\mathcal{R}\dfrac{W_{QK}^T}{\sqrt{d_{qk}}}x + \mathcal{R}\dfrac{b_{QK}}{\sqrt{d_{qk}}}
+
+\end{align}
+$$
+
+
+
+我们设$\mathcal{E}:=\mathcal{R}\dfrac{W_{QK}}{\sqrt{d_{qk}}}\mathcal{R}^T$、$\tilde{A}=1r^T$, 那么我们有：
+
+$$
+\begin{align}
+P\mathcal{X}&=P(1x^T+\mathcal{R})\\
+&=1x^T+P\mathcal{R}\quad\text{（这一步使用了softmax一行加和等于1的性质）}\\
+&=1x^T+softmax(\mathcal{E}+1r^T)\mathcal{R}\\
+&\leq 1x^T+(I+2D)1sofmax(r)^T\mathcal{R}\quad\text{（操蛋，这一步我没太看懂😤}\\
+\end{align}
+$$
+
+~~😤😤😤不等式那一步我也没太看懂作者的意图，D是啥东西作者也没提，矩阵有直接比较大小的咩？先硬着头皮看下去罢😤😤😤~~

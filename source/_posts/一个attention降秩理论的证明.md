@@ -10,16 +10,16 @@ date: 2024-11-09 00:00:40
 ---
 
 
-## Attention is not all you need？ 纯粹的注意力机制有什么问题？
+# Attention is not all you need？ 纯粹的注意力机制有什么问题？
 
 [论文地址-> pure attention loses rank doubly exponentially with depth <-](https://arxiv.org/abs/2103.03404)
 
-### 简介
+## 简介
 
 原文链接如上所示，论文开门见山的提出来一个新观点：纯粹的注意力机制会导致矩阵的秩指数级别的下降；论文标题也很有意思`Attention is not all you need`，则是与`LLM`的开山之作`Attention is all you need`相呼应，这篇文章看似在挑战`attention`机制，实际上是在从一个全新的角度来阐述为什么`attention`为什么会表现优异。
 
 
-### 回忆一下`multi-head attention`机制的细节：
+## 回忆一下`multi-head attention`机制的细节：
 
 
 一个**通俗且不严谨**的科普（~~为了不懂NLP的观众~~）：在自然语言处理过程中，我们将每个`word`编码为一个`vector`（我们认为这个向量几何意义上会反映单词的语义信息，你可以理解为比如`原神`和`崩坏铁道`的向量表示相对距离更近、而和`明日方舟`更远，因为后者非米哈游产），从而单词组成的句子就会变成一个`matrix`。自然语言处理中有很多模块负责理解并处理这些`matrix`.
@@ -37,9 +37,7 @@ date: 2024-11-09 00:00:40
 我们考虑一个输入$\mathcal{X}$是一个形如$n\times d_{in}$的输入。那么我们
 第h个注意力头的输出可以描述为：
 
-$$
-SA_{h}(\mathcal{X})=P_{h}\mathcal{X}W_{V,h}+1b_{V,h}^{T}
-$$
+$$SA_{h}(\mathcal{X})=P_{h}\mathcal{X}W_{V,h}+1b_{V,h}^{T}$$
 
 
 其中，$W_{V,h}$是形如$d_{in}\times d_{v}$的`value`矩阵，$P_{h}$是：
@@ -86,12 +84,23 @@ $$
 相信看完上述的描述之后，你肯定对线性LLM流行的多头注意力机制有了一个较为细致的了解了吧（~~不确信~~
 
 
-### pure attention collapse rank 现象？
+## pure attention collapse rank 现象？
 
 注意力~~降智~~降秩机制其实描述的是这样的事情：随着大模型层数的增加，如果我们简单的使用注意力层的堆叠，那么最后面的输出矩阵$\mathcal{X}^L$每行的向量**指数级别的倾向于一致，也就是矩阵被降秩了**！！！这对于LLM来说是一个非常糟糕的现象，~~毕竟谁都不希望看到自己的Chatbot只会说"啊对对对对对、啊错错错错错错错"吧~~。后面两个小节我们会分别从数学上证明这种现象和提出这种现象的解决方法$\dots$
 
-### Mathematics Proof of Rank-Collapsing in pure ATTETION
+## Mathematics Proof of Rank-Collapsing in pure ATTETION
 
 <center>
 <span style="text-decoration: line-through; color: red;">终于来到喜闻乐见的数学拷打时间了</span>
-<center>
+</center>
+
+
+
+首先我们需要先定义一个残差，来衡量一个矩阵和秩①矩阵的相似程度，我们定义的残差如下：
+
+$$
+res(\mathcal{X})=\mathcal{X}-1x^T，where \quad x=argmin_{x}\|\mathcal{X}-1x^T \|
+$$
+
+不难验证，一个矩阵如果越越接近于秩①矩阵的话残差是越小的。
+

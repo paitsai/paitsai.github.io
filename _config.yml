@@ -153,6 +153,14 @@ deploy:
     branch: main # 默认master分支
     message: fix up myblog by chuijih hsiao   # 自动部署commit备注，可不填
 
+# Mathjax数学公式
+# mathjax: true
+
+# Katex数学公式(allpost设置为false时只有头部设置math:true的文章才开启)
+katex:
+  enable: true
+  allpost: true
+  copy_tex: true
 
 
 #  npm audit fix --force

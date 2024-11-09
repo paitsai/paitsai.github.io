@@ -33,13 +33,12 @@
     "hexo-helper-live2d": "^3.1.0",
     "hexo-renderer-ejs": "^2.0.0",
     "hexo-renderer-kramed": "^0.1.4",
-    "hexo-renderer-pandoc": "^0.4.0",
     "hexo-renderer-pug": "^3.0.0",
     "hexo-renderer-stylus": "^3.0.1",
-    "hexo-renderer-swig": "^2.0.0",
+    "hexo-renderer-swig": "^1.1.0",
     "hexo-server": "^3.0.0",
     "hexo-tag-aplayer": "^3.0.4",
-    "hexo-tag-dplayer": "^0.3.3",
+    "hexo-tag-dplayer": "^0.1.6",
     "hexo-theme-landscape": "^1.0.0",
     "live2d-widget-model-koharu": "^1.0.5"
   }

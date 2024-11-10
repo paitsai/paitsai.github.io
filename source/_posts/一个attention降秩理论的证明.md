@@ -166,7 +166,68 @@ P\mathcal{X}&=P(1x^T+\mathcal{R})\\
 &=1x^T+P\mathcal{R}\quad\text{（这一步使用了softmax一行加和等于1的性质）}\\
 &=1x^T+softmax(\mathcal{E}+1r^T)\mathcal{R}\\
 &\leq 1x^T+(I+2D)1sofmax(r)^T\mathcal{R}\quad\text{（操蛋，这一步我没太看懂😤}\\
+&=1(x^T+softmax(r)^T\mathcal{R})+2D1softmax(r)^T\mathcal{R}\\
 \end{align}
 $$
 
-~~😤😤😤不等式那一步我也没太看懂作者的意图，D是啥东西作者也没提，矩阵有直接比较大小的咩？先硬着头皮看下去罢😤😤😤~~
+$D矩阵的相关附录见`Appendix`的part1；
+
+~~😤😤😤不等式那一步我也没太看懂作者的意图，D是啥东西作者也没提，矩阵直接比较大小好像就是每个ij位置的元素对应比较。先硬着头皮看下去罢😤😤😤~~
+
+从而我们有：
+
+$$
+\|[SA(\mathcal{X})-1(r^\prime)^T]_{ij}  \| \leq 2 \| [ D1softmax(r)^TRW_{V}  ]_{ij}           \|
+$$
+
+在此处$r^\prime=(x+\mathcal{R}^{T}softmax(r))W_{V}$;我们再来寻找上述不等式右边的界，考虑$\mathcal{L_1}$范数我们有：
+
+$$
+\| [ D1softmax(r)^TRW_{V}  ]_{ij} \|\leq \|D1\|_1 \|\mathcal{R}\|_1\|W_V\|_1
+$$
+
+在上述步骤中我们使用了$\|softmax(r)\|_1=1$以及$\|AB\|_1 \leq\|A\|_1\|B\|_1$的性质。从而不难得到$\|[SA(\mathcal{X})-1(r^\prime)^T]\|_1\leq2\|D1\|_1 \|\mathcal{R}\|_1\|W_V\|_1$的结论。
+
+通过类似的分析过程我们同样可以得到$\|[SA(\mathcal{X})-1(r^\prime)^T]\|_\infty\leq2\|D1\|_\infty \|\mathcal{R}\|_\infty\|W_V\|_\infty$.
+
+
+结合上述两步推导过程我们有：
+
+$$
+\|\mathcal{R}^\prime\|_{1,\infty}=\sqrt{\|\mathcal{R}^\prime\|_1\|\mathcal{R}^\prime\|_{\infty}}\leq2\sqrt{\|D1\|_1 \|D1\|_\infty}\|\mathcal{R}\|_{1,\infty}\|W_{V}\|_{1,\infty}
+$$
+
+
+
+
+
+
+
+
+## Appendix
+
+### Lemma-1
+
+引理1：设$P$是矩阵$A$的`row-stochastic matrix`，$\tilde{A}$是矩阵$\tilde{A}=A-E$的`row-stochastic matrix`.(for some matrix $E$ with $\|E_{ij}-E_{ij}^\prime\|\leq 1.256$)，有：
+
+
+$$
+(I-D)\tilde{P}\leq P\leq (I+2D)\tilde{P}
+$$
+
+成立，其中对角矩阵$D$满足$D_{ii}=max_{j,j^\prime}\|\delta_i^TE(\delta_j-\delta_{j^\prime})\|$.（这里的$\delta_i$我猜测就是就是第i个元素为1的向量...
+
+
+
+
+
+<center>剪切线，启动！</center>
+------------------------
+
+## 后记
+
+
+<center>
+这一篇论文过于理论化，Mr.Xau抽空前前后后一个星期才看完；内容太抽象导致本人也变得抽象起来了belike：
+<img src="/pics/chouxiang.jpg" width="45%">
+</center>

@@ -31,7 +31,7 @@ menu:
 code_blocks:
   # Code block theme: darker / pale night / light / ocean / false
   theme: ocean
-  macStyle: false
+  macStyle: true
   # Code block height limit (unit: px)
   height_limit: false
   word_wrap: false
@@ -40,7 +40,7 @@ code_blocks:
   copy: true
   language: true
   # true: shrink the code blocks | false: expand the code blocks | none: expand code blocks and hide the button
-  shrink: false
+  shrink: true
   fullpage: false
 
 # Social media links
@@ -1187,7 +1187,7 @@ businesscard:
   master: Paitsai #群主ID
   group: 114514 #QQ群号
   created: 07/11/2024 #建群时间
-  front: Welcome to Ryuuka's blog #卡面正面描述语
+  front: Welcome to Mr.Xau's blog #卡面正面描述语
   back1: paitsai168.sbs #背面从上到下四行文字内容自定义
   back2: <a href="https://www.bilibili.com/video/BV1UT42167xb">https://pornhub.com</a>
   back3: Use this card to join the candyhome and participate in a pleasant discussion together .

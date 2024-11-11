@@ -103,19 +103,17 @@ cover:
   archives_enable: true
   # When cover is not set, the default cover is displayed
   default_cover:
-    - https://static.zerochan.net/Vulpisfoglia.full.4333811.jpg
-    - https://static.zerochan.net/Yanagi.%28Zenless.Zone.Zero%29.full.4333064.jpg
-    - https://static.zerochan.net/Joan.Alter.full.2820134.jpg
-    - https://static.zerochan.net/Fate.Grand.Order.full.3102700.jpg
-    - https://static.zerochan.net/Fate.Grand.Order.full.3524837.jpg
-    - https://static.zerochan.net/Fate.Grand.Order.full.2871696.jpg
-    - https://static.zerochan.net/Komeiji.Satori.full.4333818.jpg
-    - https://static.zerochan.net/BanG.Dream%21.full.4323806.png
-    - https://static.zerochan.net/MyGO%21%21%21%21%21.full.4104045.jpg
-    - https://static.zerochan.net/BanG.Dream%21.full.4247825.jpg
-    - https://static.zerochan.net/Nagasaki.Soyo.full.4024904.jpg
-  
-
+    - https://paitsai168.sbs/pics/1.jpg
+    - https://paitsai168.sbs/pics/2.jpg
+    - https://paitsai168.sbs/pics/3.jpg
+    - https://paitsai168.sbs/pics/4.jpg
+    - https://paitsai168.sbs/pics/5.jpg
+    - https://paitsai168.sbs/pics/6.jpg
+    - https://paitsai168.sbs/pics/7.jpg
+    - https://paitsai168.sbs/pics/8.jpg
+    - https://paitsai168.sbs/pics/9.jpg
+    - https://paitsai168.sbs/pics/10.jpg
+    - https://paitsai168.sbs/pics/11.jpg
 
     # - xxx.jpg
 
@@ -851,8 +849,8 @@ beautify:
 # Global font settings
 # Don't modify the following settings unless you know how they work
 font:
-  global_font_size: 
-  code_font_size: 
+  global_font_size: 18px
+  code_font_size: 18px
   font_family: CascadiaCodePL
   code_font_family: CascadiaCodePL
 

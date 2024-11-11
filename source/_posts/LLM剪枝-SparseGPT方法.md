@@ -4,6 +4,8 @@ mathjax: true
 categories: 学术
 tags:
   - 大模型压缩
+  - 剪枝
+  - Pruning
 abbrlink: 20461be3
 date: 2024-11-11 22:01:11
 ---
@@ -31,6 +33,8 @@ date: 2024-11-11 22:01:11
 
 ## `SparseGPT`的基本原理
 
+### 已有方法存在的问题：
+
 
 一般的模型减枝（Pruning）都包含两步——Mask Selection 和 weight restruction。
 
@@ -48,16 +52,34 @@ $$
 根据上述分析和推导，我们的权重重建过程可以化为一个最小二乘法的最优化问题，形式通解可以描述为：
 
 $$
-\mathcal{W}^i_{\mathcal{M}_i}|_{update}=(\mathcal{X}_{\mathcal{M}_i}{\mathcal{X}_{\mathcal{M}_i}}^T)^{-1}{\mathcal{X}_{\mathcal{M}_i}}(\mathcal{W}_{\mathcal{M}_i}{\mathcal{X}_{\mathcal{M}_i}})^T
+\mathcal{W}^i_{\mathcal{M}_i}|_{update}=(\mathcal{X}_{\mathcal{M}_i}{\mathcal{X}_{\mathcal{M}_i}}^T)^{-1}{\mathcal{X}_{\mathcal{M}_i}}(\mathcal{W}_{\mathcal{M}_i}{\mathcal{X}_{\mathcal{M}_i}})^T\\
+$$
+我们不妨定义海森矩阵：
+$$
+H_{\mathcal{M_i}}=\mathcal{X}_\mathcal{\mathcal{M}_i}{\mathcal{X}_\mathcal{\mathcal{M}_i}}^T
 $$
 
 这里面的${\mathcal{X}_{\mathcal{M}_i}}$指的是经过掩码的第$i$行之后仍然存在的输入；$\mathcal{W}_{\mathcal{M}_i}$是对应的权重；$\mathcal{W}^i_{\mathcal{M}_i}$是第i行更新之后的权重。
 
 但是这样的方法仍然会存在很多问题：
 
-- 
+- **最重要的一点是**：掩码每一行不同会导致不同的海森矩阵，导致计算量巨大。并且$(H_{\mathcal{M_i}})^{-1}\neq(H)^{-1}_{\mathcal{M_i}}$，计算矩阵的逆也十分消耗计算资源，就像下图所展示的这样。
 
+<center>
+<img src="/pics/row_hs.png" width="70%">
+</center>
 
+----------------------------------
+
+<center>！素食剪切线警告！</center>
+
+----------------------------------
+
+### 作者提出的新视角
+
+> 一种等价的迭代视角
+
+作者借鉴了[Optimal Brain Surgery【OBS】](https://www.babak.caltech.edu/pubs/conferences/00298572.pdf)中调整剩余权重来减少Pruning所减去当前权重影响的思想来对现有的方法进行改进。
 
 
 <center>

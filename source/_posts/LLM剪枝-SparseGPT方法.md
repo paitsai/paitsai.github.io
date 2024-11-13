@@ -121,7 +121,11 @@ $$
 
 通过上述的分析我们可以看到整体的计算开销主要由三部分组成：
 
-（a）初始Hessian矩阵的计算$T_1=\mathcal{O}(n\cdot d_{col}^2)$，其中n是输入特征向量的数量；（b）计算初始Hessian矩阵的逆$T_2=\mathcal{O}(d_{col}^3)$；（c）然后对每一行使用权重重建$T_3=\mathcal{O}(d_{col}^2d_{row})$
+- （a）初始Hessian矩阵的计算$T_1=\mathcal{O}(n\cdot d_{col}^2)$，其中n是输入特征向量的数量；
+
+- （b）计算初始Hessian矩阵的逆$T_2=\mathcal{O}(d_{col}^3)$；
+
+- （c）然后对每一行使用权重重建$T_3=\mathcal{O}(d_{col}^2d_{row})$
 
 总结：总共的时间复杂度就是$\mathcal{O}(d_{col}^3+d_{row}d_{col}^2)$.对于Transformer系列的模型，可以简化为$\mathcal{O}(h_{hidden}^3)$的复杂度。
 
@@ -133,7 +137,7 @@ $$
 
 在此之前，我们主要集中于谈论权重重建的细节，都是基于一个固定的Pruning Mask来进行的权重重建。已有的Mask Selection方法可以参考基于幅度（magnitude）选取的方法；一个最直观地做法就是选取每一列值最小的$p\%$的权重，这样可以直接构造出$p\%$的稀疏性，但是这样对每一行来说是不平均的，特别是transformer这样的架构会有少量高敏感的权重。
 
-
+为了解决这一点所存在的问题，原文使用了一种叫做迭代阻塞（iterative blocking）的方法。
 
 
 

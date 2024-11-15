@@ -1098,6 +1098,8 @@ inject:
     - <script src="https://blog-static.cnblogs.com/files/izbw/yinghua.js"></script>
     # - <script src="https://blog-static.cnblogs.com/files/izbw/shubiaotexiao.js"></script> <script type="text/javascript">//樱花 var system ={}; var p = navigator.platform; system.win = p.indexOf("Win") == 0; system.mac = p.indexOf("Mac") == 0; system.x11 = (p == "X11") || (p.indexOf("Linux") == 0); if(system.win||system.mac||system.xll){//如果是电脑  $.getScript("https://blog-static.cnblogs.com/files/izbw/yinghua.js"); }else{ //如果是手机  } </script>
     # - <script src="xxxx"></script>
+    - <script src="https://unpkg.com/oh-my-live2d@latest"></script>
+    - <script>OML2D.loadOml2d({models:[{path:'https://paitsai168.sbs/img/bisimai_2_hx/bisimai_2_hx.model3.json',position:[-130,-50],scale:0.07,stageStyle:{height:360,width:320}}]});</script>
 # inject:
 #   head:
     

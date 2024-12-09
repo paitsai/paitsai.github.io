@@ -56,8 +56,6 @@ GNN通常处理的是二部图`Bipartite Graph`，就是说一个graph里边只�
 
 
 
-
-
 过往的解决策略多数是基于矩阵分解、协同过滤算法的推荐策略：
 
 这里介绍一种最为经典的名为FunkSVD的协同过滤推荐算法，但是这里的FunkSVD并不同于已有的数学意义上的典型SVD算法，这里的FunkSVD选择将评分矩阵拟合分解为两个矩阵相乘；
@@ -68,13 +66,18 @@ GNN通常处理的是二部图`Bipartite Graph`，就是说一个graph里边只�
 
 
 <center>
-<img src="/pics/funksvd1.png",width="75%">
+<img src="/pics/funksvd1.png" width="75%">
 </center>
 
 
 就像上图所展示的，我们的用户平台收集了很多用户对各种商品的评分（~~比如叔叔🐭收集了整个西安交通大学用户近一个月的B站视频点赞👍和投币视频、以及不喜欢的视频~~，然后根据这些指标构造一个二维的打分矩阵来描述用户整体对视频的偏好。
 
 > 但是这样的矩阵其实是一个非常稀疏的矩阵：因为用户群体很大、视频量也是海量的🌊，一个用户只可能看过海量数据中的很小很小很小一部分，所以矩阵存在大量稀疏。
+
+<center>
+<img src="/pics/xxer.png" width="55%">
+</center>
+
 
 
 ### FunkSVD的原理
@@ -88,6 +91,51 @@ $$
 $$
 
 我们推荐系统其实需要完成的就是找到所有用户和物品的最佳编码，来使得 $p_i\times {q_u}^T$ 和打分表中非空的 $r_{ui}$ 最接近。然后再用 $\hat{r}_{u^{\prime}i^{\prime}}$ 来评估未打分的空格，再来根据这个值来对用户为浏览过的视频进行推荐。
+
+
+<center>
+<img src="/pics/svdf.png" width="85%">
+</center>
+
+
+
+Sodayo，就像上图所展示的，上图中我们的每一个用户、商品都被编码成为一个四维的向量。
+
+
+### FunkSVD的工作流程
+
+那么我们如何获得所谓的最佳用户以及商品编码呢？
+
+没错，就是定义一个损失函数，然后在使用梯度下降去求最佳拟合就好，Sodayo
+
+
+
+
+定义一个损失函数：
+
+$$
+Loss(q_u,p_i)=\|(r_{ui}-p_i \times {q_u}^T)\| ^2+\dfrac{\lambda}{2}(\|p_i\|^2+\|q_u\|^2)
+$$
+
+上述函数的第一项就是👈的拟合好坏、第二项叫做正则化项，是用来防止过拟合的，
+接下来就可以使用梯度下降去计算最佳的$p_i$以及$q_u$了。
+
+
+$$
+\begin{align*}
+\dfrac{\partial{Loss}}{\partial{q_u}}&=-2(r_{ui}-q_u\times p_i)q_u +\lambda q_u\\
+\dfrac{\partial{Loss}}{\partial{p_i}}&=-2(r_{ui}-q_u\times p_i)p_i +\lambda p_i\\
+\end{align*}
+$$
+
+引入步长$\alpha$，每次沿着负梯度方向更新这两个向量即可：
+
+$$
+\begin{align*}
+q_u^{\prime}&={q_u}-\alpha \dfrac{\partial}{\partial{q_u}}Loss\\
+p_i^{\prime}&={p_i}-\alpha \dfrac{\partial}{\partial{p_i}}Loss\\
+\end{align*}
+$$
 
 
 

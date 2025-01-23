@@ -149,9 +149,9 @@ theme: butterfly
 ## Docs: https://hexo.io/docs/one-command-deployment
 deploy:
     type: git # 不要使用github
-    repo: https://github.com/paitsai/paitsai.github.io 
+    repo: git@github.com:paitsai/paitsai.github.io.git 
     branch: main # 默认master分支
-    message: fix up myblog by chuijih hsiao   # 自动部署commit备注，可不填
+    message: update myblog by Mr.Xau   # 自动部署commit备注，可不填
 
 # Mathjax数学公式
 # mathjax: true

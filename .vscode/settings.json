@@ -1,0 +1,21 @@
+{
+    "editor.codeActionsOnSave": {},
+    "background.editor": {
+
+        "useFront": true,
+        // "opacity": 0.1,
+        "style": {
+            "background-position": "100% 100%",
+            "background-size": "auto",
+            "opacity": 0.6
+        },
+        "styles": [
+            {},
+            {},
+            {}
+        ],
+        "images": [],
+        "interval": 0,
+        "random": false
+    }
+}

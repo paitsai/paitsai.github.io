@@ -14,7 +14,99 @@ date: 2025-01-24 22:29:55
 論文地址在這裡[GEAR: An Effective KV Cache Compression Recipe  for Near-Lossless Generative Inference of LLM](https://arxiv.org/abs/2403.05527)
 
 
+## 研究背景
 
+原文中作者總結了現在階段為了解決GPU Memory問題的流行的幾種方法:
+
+(a)使用`offload`技術,通過將GPU的內存消耗轉移到CPU使用的內存or NVMe的存儲空間上.這種方式對總線帶寬(bandwidth)需求極大
+
+(b)緊接著提出來的是`tokens dropping`技術(比如我們上一篇文章StreamLLM也屬於這一類),這類方法屬於是利用注意力分佈的稀疏性,將註意力分數低下的tokens捨棄達到降低顯存消耗的目的.
+
+(c)另一種經常使用的量化技術(quantization),通過將全精度的數據轉化為半精度的數據進行存儲來降低顯存消耗.
+
+上述的三種方法:(a)會依賴於總線的帶寬來達到GPU和CPU之間高速的數據傳送.(b),(c)兩種方式雖然在絕大部分任務中都能高效的降低顯存佔用,並且對推理效果的損失也極低;但是在復雜的生成式任務中(比如涉及邏輯推理,解決數理問題)這兩種方法都存在普遍且明顯的效能損失.
+
+在較為簡單的任務中,模型只需要產生少數tokens從少數特定的上下文中就可以完整正確的自回歸任務.然而,在複雜的任務中,通常需要模型依據大量相關的上下文tokens產生更長更多的tokens;然而自回歸的docode過程中每一步得會累積誤差;
+
+
+<center>
+  <img src="/pics/approx_err.jpg" width="80%">
+</center>
+
+積累的$L_1$誤差如上圖所示.在這個背景下,為了改善這種情形原文作者提出了`GEAR`用來減少KV cache量化的估計誤差.
+
+## 深入分析GEAR細節
+
+
+### 前置知识
+
+(i) 基础量化方法
+
+比如说我们有一个tensor $X\in R^{n\times d}$ 作为输入, 想要将这样一个输入的tensor做一个带宽(bandwidth)为b的量化操作,可以描述如下:
+
+$$
+Quant_{b,g}^{per-token}=\dfrac{X_{\mathcal{G}_i}-min(X_{\mathcal{G}})}{max(X_{\mathcal{G}})-min(X_{\mathcal{G}})}\times (2^b-1)
+$$
+
+其中 $g$ 是指一个量化分组的size; 通常 $g$ 取得越小量化效果越好,但是与此同时g取得越多需要保存的缩放因子也越多会导致内存消耗变大.
+
+(ii) MHA 多头注意力机制
+
+关于多头注意力的分析前面的文章以及分析过不少了,这里仅给出形式化的公式:
+
+$$
+\begin{align}
+MHA(X)&=concat(H^{(1)},H^{(2)},...,H^{(h)})\cdot W_O\\
+H_i&=Softmax(\dfrac{Q^{(i)}K^{(i)T}}{\sqrt{d_H}})\cdot V^{(i)}\\
+\end{align}
+$$
+
+
+
+### GEAR的總體框架
+
+GEAR的整體思路其實很簡單,主要可以描述為以下三步:
+
+(i) 首先對KV cache採用一個常規的量化方法(比如將全進度float16的kv值全部轉儲為int2的類型),但是這必然會導致精度的大幅降低.
+
+(ii) 然后引入一个低秩矩阵来高效的估计量化之后的残差;
+
+(iii) 最后再引入一个稀疏矩阵来补全一些异常值导致的极个别的大额误差;
+
+省流版: 在原来粗暴量化的基础上,整体绝大部分的误差是通过引入一个低秩矩阵来解决的,而一些异常值是通过一个稀疏矩阵来恢复的;
+
+- 符号规定:
+
+量化之后的kv cache矩阵为 $\hat{\mathcal{D}}$; 上文提及的低秩矩阵记作 $\mathcal{L}$; 用于捕捉补偿少部分异常值的稀疏矩阵记作 $\mathcal{S}$;
+
+- 基本策略:
+
+给定一个待处理的tensor $\mathcal{X}\in \{ K_t,V_t\}$ ,我们的策略就是上文提及的三种量化策略之后得到的三部分矩阵, 然后最小化 $\mathcal{X}$ 和上述三部分的距离;所以实际上, 这个任务可以描述为:
+
+$$
+minimize\|\mathcal{X}-\hat{\mathcal{D}}-\mathcal{L}-\mathcal{S}\|
+$$
+
+(i) 我们都知道过大或者过小的异常值会对量化过程的精度造成极大的影响,所以最佳的策略是在量化之前先进行一次异常值提取, 具体而言:
+
+$$
+\begin{align}
+\mathcal{S}&=Filter_S(\mathcal{X})\\
+Filter_S(\mathcal{X})&=\left\{
+\begin{array}{l}
+\mathcal{X_{ij}},s.t. \mathcal{X}=K_t and \mathcal{X}_{ij}\text{in top/buttom} \frac{s}{2}\% \text{of the j-th channel}{\mathcal{X}_{*j}} \\
+\mathcal{X_{ij}}, s.t. \mathcal{X}=V_t and \mathcal{X}_{ij}\text{in top/buttom} \frac{s}{2}\% \text{of the i-th token} {\mathcal{X}_{i*}}\\
+0,  s.t.else.
+\end{array}
+\right.\\
+\end{align}
+$$
+
+在异常值提取完成之后,再接着进行量化处理:
+
+$$
+\hat{\mathcal{D}}=Quant_{b}^{\text{Selected Scheme}}(\mathcal{X}-\mathcal{S}).
+$$
 
 ## 附錄
 
@@ -58,7 +150,7 @@ $$
 $$
 
 
-上式中$E_k=(X-\sum_{i\neq k}d_j\cdot x_j)$被定義為殘差;此時最優化問題可以被描述為$min_{d_k}\|E_k-d_k\cdot z_k\|$,這顯然是一個最小二乘問題,可以直接用最小二乘法就可以解決這個問題.
+上式中 $E_k=(X-\sum_{i\neq k}d_j\cdot x_j)$ 被定義為殘差;此時最優化問題可以被描述為 $min_{d_k}\|E_k-d_k\cdot z_k\|$ ,這顯然是一個最小二乘問題,可以直接用最小二乘法就可以解決這個問題.
 
 但是這裡仍然需要註意的問題是,我們不能直接使用$E_k$進行求解,因為不加限製的求解時$x_k$不能保證稀疏性.我們需要選取出$E_k$中不為0的部分再進行迭代更新.就像下圖所展示的一樣:
 
@@ -105,7 +197,7 @@ $$
 
 
 <center>
-  <img src="/pics/katsumi.jpg" width="80%">
+  <img src="/pics/sakiko_plane.jpg" width="40%">
 </center>
 
 

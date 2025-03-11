@@ -108,6 +108,54 @@ $$
 \hat{\mathcal{D}}=Quant_{b}^{\text{Selected Scheme}}(\mathcal{X}-\mathcal{S}).
 $$
 
+这样的思路其实在之前早已被应用于LLM的权重量化上, 但是相比于对于权重(weight)量化而言, kv cahce拥有更多的
+异常值(outliers),使得异常值提取的重要性更大了;
+
+
+(ii) 提取完成异常值之后再进行低秩矩阵误差估计;
+
+
+根据上文的说法, 我们定义的低秩残差为 $\mathcal{R}=\mathcal{X}-(\hat{\mathcal{D}+\mathcal{S}})\in\mathcal{R}^{n\times d}$;
+
+然后我们将上述低秩残差分作 $H$ 个多头子矩阵, 其中 $\mathcal{R}_h$ 是第h个头的残差矩阵: $\{\mathcal{R}_h=\mathcal{R}[:,(h-1)d_H:hd_H]\}$
+
+
+设 $\mathcal{R}_h$ 的奇异值分解形式如 $\sum_{i=1}^{k}\sigma_i\mu_i m_i^T$, 其中 $\sigma_1>\cdots>\sigma_k$ 是 $\mathcal{R}_h$ 的奇异值, $\mu_i$ 和 $m_i$ 为对应的特征向量;
+
+
+<center>
+  <img src="/pics/singluar123.png" width="40%">
+</center>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 ## 附錄
 
 (a)理解`低秩矩陣`和`稀疏矩陣`

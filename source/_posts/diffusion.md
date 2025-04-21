@@ -247,6 +247,59 @@ $$
 p_{\theta}(x_;T)=p(x_T)\prod_{t=T}^{1}p_{\theta}(x_{t-1},x_0)=p(x_T)\prod_{t=T}^{1}\mathcal{N}(x_{t-1}|\mu_{\theta}(x_t,t),\sigma_{\theta}^2(x_t,t)\mathcal{I})\\
 $$
 
+注意到(~~贝叶斯公式又立大功~~):
+
+$$
+q{(x_{t-1}|x_t,x_0)}=q(x_t|x_{t-1},x_0)\cdot \dfrac{q(x_{t-1}|x_0)}{q(x_t|x_0)}=q(x_t|x_{t-1})\cdot \dfrac{q(x_{t-1}|x_0)}{q(x_t|x_0)}
+$$
+第二个等号是因为这是`Markov`过程,后一个状态只取决于前一步状态.
+
+
+再次注意到:
+
+
+$$
+\begin{align*}
+q(x_t|x_{t-1}) &\sim \mathcal{N}(\sqrt{\alpha_t}x_{t-1},\sqrt{1-\alpha_t})\\
+q{(x_{t-1}|x_0)}&\sim \mathcal{N}(\sqrt{\hat{\alpha_{t-1}}}x_0,\sqrt{1-\hat{\alpha_{t-1}}}) \\
+q{(x_{t}|x_0)}&\sim \mathcal{N}(\sqrt{\hat{\alpha_{t}}}x_0,\sqrt{1-\hat{\alpha_{t}}}) \\
+\end{align*}
+$$
+
+
+整理得到:
+
+
+$$
+q{(x_{t-1}|x_t,x_0)}=\mathcal{N}(x_{t-1};\hat{\mu_t}(x_t),\hat{\beta_t}\mathcal{I})
+$$
+
+
+其中:
+
+$$
+\begin{align*}
+\hat{\mu_t}(x_t)&=\dfrac{\sqrt{\alpha_t}(1-\hat{\alpha_{t-1}})}{1-\hat{a_t}}x_t+\dfrac{\sqrt{\hat{\alpha_{t-1}}}\beta_t}{1-\hat{\alpha_t}}x_0=\dfrac{1}{\sqrt{\alpha_t}}\left(x_t-\dfrac{\beta_t}{\sqrt{1-\hat{\alpha_t}}}\hat{\epsilon_t}\right)\\
+\hat{\beta_t}&=\dfrac{1-\hat{\alpha_{t-1}}}{1-\hat{\alpha_t}}\\
+\end{align*}
+$$
+
+
+我们 $x_{t-1}(x_t,t,\theta)$ 需要拟合的就是上述的 $\hat{\mu_t}(x_t),\hat{\beta_t}$.
+
+
+## PART3 训练过程
+
+to be continue...
+
+<center>
+<img src="/pics/anon_red.jpg" width="35%">
+</center>
+
+
+
+
+
 
 
 

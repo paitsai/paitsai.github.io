@@ -1,5 +1,5 @@
 ---
-title: diffusion model 概述
+title: 最近想和大家讲讲`diffusion model`!
 mathjax: true
 categories: 学术
 tags:
@@ -10,10 +10,10 @@ date: 2025-04-19 02:11:47
 ---
 
 
-# 最近想和大家讲讲`diffusion model`!
+<!-- # 最近想和大家讲讲`diffusion model`! -->
 
 
-## `Diffusion`和图像生成的关系
+# `Diffusion`和图像生成的关系
 
 谈到`diffusion model`那么就不得不谈及`AIGC`. 在过去几年里里，以Stable Diffusion为代表的AI图像/视频生成是世界上最为火热的AI方向之一. Stable Diffusion里的这个”Diffusion”是什么意思？其实，扩散模型(Diffusion Model)正是Stable Diffusion中负责生成图像的模型。想要理解Stable Diffusion的原理，就一定绕不过扩散模型的学习。
 
@@ -21,14 +21,14 @@ date: 2025-04-19 02:11:47
 在这篇文章里，我会由浅入深地对去噪扩散概率模型（Denoising Diffusion Probabilistic Models, DDPM）进行一个介绍。
 
 
-## 图像生成任务的解决
+# 图像生成任务的解决
 
 相比其他AI任务，图像生成任务显然是一个更加困难的事情. 比如人脸识别,序列预测...这一系列任务都有明确的训练集来给出or蕴含一个[标准答案].
 但是图像生成就没有, 图像生成数据集里只有一些同类型图片，却没有指导AI如何画得更好的信息。
 
 过去的解决方案:
 
-### `GAN`对抗生成模型
+## `GAN`对抗生成模型
 
 
 - `GAN`的原理简介
@@ -62,7 +62,7 @@ to be continued
 ------------------------------------------------------------------------------
 
 
-### `VAE` (Variational AutoEncoder) 变分推断模型
+## `VAE` (Variational AutoEncoder) 变分推断模型
 
 VAE作为可以和GAN比肩的生成模型，融合了贝叶斯方法和深度学习的优势，拥有优雅的数学基础和简单易懂的架构以及令人满意的性能，其能提取disentangled latent variable的特性也使得它比一般的生成模型具有更广泛的意义。
 
@@ -98,26 +98,38 @@ $$
 
 即最大化 $P(X)\approx =\dfrac{1}{n}\sum_{i}P(X|z_i)$
 
-然而当$z$是维度很高的高斯分布的时候,这种方法训练十分低效.
+然而当$z$是维度很高的高斯分布的时候,这种方法训练十分**低效**. 直接使用`z`先验分布来训练低效的原因直觉上是很明显的.因为对于数据集中的一个实例 $X_j$ 而言,其对应的隐变量区间 $z_j$ 实际上被似然函数**采样到的概率是很低的**.也就是说有效的训练次数很低.我们需要先假设一个 $q(z|X)$ 从此来针对数据集 $X_j$ 先得到 $z_j$ 来针对`decoder`训练,这样有效训练次数将大幅提升!
 
 
-我们需要注意到, 对于采样 $z_i \sim P(z)$ 所有的 $P(X|z_i)$ 其实都是几乎为0的. 换言之,绝大部分采样得到的的 $z$ 对于目标函数 $P(X)$ 的贡献**无足轻重**. 在换言之,我们只需要关注 $P(z|X)$ 更大的部分即可.
+
+
+
+或者换一种说法: 我们需要注意到, 对于采样 $z_i \sim P(z)$ 所有的 $P(X|z_i)$ 其实都是几乎为0的. 换言之,绝大部分采样得到的的 $z$ 对于目标函数 $P(X)$ 的贡献**无足轻重**. 在换言之,我们只需要关注 $P(z|X)$ 更大的部分即可.
 
 那么问题来了, 怎么计算 $z$ 的后验知识 $P(z|X)$?????? ~~很难的!~~
 
-(2) 引入新的近似分布`q`
 
-直接计算后验分布 $P(z|X)$ 是极其困难的,我们需要引入一个近似分布 $q(z|X)$;必须保证 $p$ 和 $q$ 的分布相似性.这里用`KL`散度来衡量:
+<center>
+<img src="/pics/anon_red.jpg" width="35%">
+</center>
+
+
+
+(2) 贝叶斯公式巧妙转换 $p(z|X)$
+
+直接得到后验分布 $P(z|X)$ 是极其困难的,我们能够得到的只有`encoder`侧的输出 $q(z|X)$ .我们需要记`encoder`的输出 $q(z|X)$;但是与此同时必须保证 $p$ 和 $q$ 的**分布相似性**.这里用`KL`散度来衡量:
 
 $$
 D(p(z|X)\|q(z|X))=E_{z\sim q}\left[log(q(z|X))-log(p(z|X))\right]
 $$
 
-使用贝叶斯公式对上式化简~~化繁~~:
+使用**贝叶斯公式**对上式化简~~化繁~~: (~~其实贝叶斯这一步是最关键的一步~~)
 
 $$
 p(z|X)=\dfrac{p(X|z)\times p(z)}{p(X)}
 $$
+
+> 可以看见:我们通过使用贝叶斯公式将 $p(z|X)$ **巧妙地转换**为 $p(X|z)$ 将问题从`encoder`一侧转移到`decoder`一侧 ! 这是最最关键的一步!
 
 于是:
 
@@ -160,7 +172,7 @@ $$
 --------------------------------------------------------------------------------
 
 
-### `Diffusion`模型
+# `Diffusion`模型
 
 
 扩散模型是一种特殊的VAE，其灵感来自于热力学：一个分布可以通过不断地添加噪声变成另一个分布。放到图像生成任务里，就是来自训练集的图像可以通过不断添加噪声变成符合标准正态分布的图像。但是:
@@ -178,7 +190,7 @@ $$
 具体来说，扩散模型由正向过程和反向过程这两部分组成，对应VAE中的编码和解码。在正向过程中，输入 $X_0$ 会不断混入高斯噪声. 经过 $T$ 回合的加噪处理之后, 图像 $X_T$ 会变成一个符合标准正态分布的纯噪声图像. 而在反向过程中，我们希望训练出一个神经网络，该网络能够学会若干个去噪声操作，把 $X_T$ 还原回 $X_0$ .
 
 
-
+## PART1 加噪过程:
 
 前向加噪过程可以用描述为:
 
@@ -192,7 +204,48 @@ $$
 
 其中 $\beta_{t_i}$  是高斯分布方差的超参数,在扩散过程中，随着 $T$ 的增大, 越来越接近纯噪声。当 $T$ 足够大的时候，收敛为标准高斯噪声 $\mathcal{N}(0,\mathcal{I})$。
 
+不妨设 $\alpha_t=1-\beta_t$ , $\hat{a_t}=\prod_{i=1}^t \alpha_i$ , 依次展开 $x_t$ 可以得到:
 
+$$
+\begin{align*}
+x_t&=\sqrt{\alpha_t}x_{t-1}+\sqrt{1-\alpha_t}\epsilon_1\\
+&=\sqrt{\alpha_t}\left(\sqrt{\alpha_{t-1}}x_{t-2}+\sqrt{1-\alpha_{t-1}}\epsilon_2\right)+\sqrt{1-\alpha_t}\epsilon_2\\
+&=\sqrt{\alpha_1\alpha_2}x_{t-2}+\left(\sqrt{\alpha_t(1-\alpha_{t-1})}\epsilon_2+\sqrt{1-\alpha_t}\epsilon_1\right)\\
+\end{align*}
+$$
+
+其中 $\epsilon_1, \epsilon_2 \sim \mathcal{N}(0,\mathcal{I})$, 由独立正态分布的可叠加性: $\mathcal{N}(0,\sigma_1^2\mathcal{I})+\mathcal{N}(0,\sigma_2^2\mathcal{I})$ :
+
+$$
+x_t=\sqrt{\alpha_t\alpha_{t-1}}x_{t-1}+\sqrt{1-\alpha_t\alpha_{t-1}}\hat{\epsilon}
+$$
+
+再进一步:
+
+$$
+x_t=\sqrt{\hat{a_t}}x_0+\sqrt{1-\hat{a_t}}\hat{\epsilon_t}
+$$
+
+
+
+这意味着 $q(x_t|x_0)= \mathcal{N}(x_t|\sqrt{\hat{a_t}}x_0,(1-\sqrt{\hat{a_t}})\mathcal{I})$
+
+加噪过程到此结束.
+
+
+## PART2  解噪过程
+
+实际上, 每一步降噪过程 $q(x_{t-1}|x_t)$ 是难以形式化求解的.  我们的解码器就是为此而来的!其中 $\theta$ 就是我们神经网络的参数:
+
+$$
+p_{\theta}(x_{t-1}|x_t)=\mathcal{N}(x_{t-1}|\mu_{\theta}(x_t,t),\sigma_{\theta}^2(x_t,t)\mathcal{I})
+$$
+
+于是有:
+
+$$
+p_{\theta}(x_;T)=p(x_T)\prod_{t=T}^{1}p_{\theta}(x_{t-1},x_0)=p(x_T)\prod_{t=T}^{1}\mathcal{N}(x_{t-1}|\mu_{\theta}(x_t,t),\sigma_{\theta}^2(x_t,t)\mathcal{I})\\
+$$
 
 
 

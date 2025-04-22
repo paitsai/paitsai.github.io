@@ -280,23 +280,103 @@ $$
 $$
 \begin{align*}
 \hat{\mu_t}(x_t)&=\dfrac{\sqrt{\alpha_t}(1-\hat{\alpha_{t-1}})}{1-\hat{a_t}}x_t+\dfrac{\sqrt{\hat{\alpha_{t-1}}}\beta_t}{1-\hat{\alpha_t}}x_0=\dfrac{1}{\sqrt{\alpha_t}}\left(x_t-\dfrac{\beta_t}{\sqrt{1-\hat{\alpha_t}}}\hat{\epsilon_t}\right)\\
-\hat{\beta_t}&=\dfrac{1-\hat{\alpha_{t-1}}}{1-\hat{\alpha_t}}\\
+\hat{\beta_t}&=\dfrac{1-\hat{\alpha_{t-1}}}{1-\hat{\alpha_t}}\beta_t\approx \beta_t\\
 \end{align*}
 $$
 
 
 我们 $x_{t-1}(x_t,t,\theta)$ 需要拟合的就是上述的 $\hat{\mu_t}(x_t),\hat{\beta_t}$.
 
+于是模型预测的 $x_{t-1}$ 可以写作:
+
+$$
+x_{t-1}(x_t,t;\theta)=\dfrac{1}{\sqrt{\alpha_t}}\left(x_t-\dfrac{\beta_t}{\sqrt{1-\hat{\alpha_t}}}{\epsilon_\theta}(x_t,t)\right)+\sigma_\theta(x_t,t)z, z\sim \mathcal{N}(0,\mathcal{I})
+$$
+
+
 
 ## PART3 训练过程
 
-to be continue...
+`diffusion`本质上是一种特殊的`VAE model`于是我们可以参考`VAE`变分推断的变分下界将问题进行转换:
+
+
+$$
+\mathcal{Loss}=E_{q(x_0)}[-log(p_\theta(x_0))]\leq E_{q(x_{0:T})}\left[log\left(\dfrac{q(x_{1:T}|x_0)}{p_\theta(x_{0:T})}\right)\right]:=\mathcal{L}_{vlb}
+$$
+
+进一步处理可以得到:
+
+
+$$
+\begin{align*}
+\mathcal{L}_{vlb}&=E_{q(x_{0:T})}\left[log\left(\dfrac{q(x_{1:T}|x_0)}{p_\theta(x_{0:T})}\right)\right]\\
+&=E_{q(x_{0:T})}\left[log\left(\prod_{t=1}^Tq(x_t|x_{t-1})\right)/\left(p_\theta(x_T)\prod_{t=1}^Tp_{\theta}(x_{t-1}|x_t)\right)\right]\\
+&=E_{q(x_{0:T})}\left[-log(p_{\theta}(x_T))+\sum_{t=1}^{T}log \dfrac{q(x_t|x_{t-1})}{p_\theta(x_{t-1}|x_t)}\right]\\
+&=E_{q(x_{0:T})}\left[-log(p_\theta(x_T))+\sum_{t=2}^{T}log\left(\dfrac{q(x_{t-1}|x_t,x_0))}{p_\theta{(x_{t-1}|x_t)}}\cdot\dfrac{q(x_t|x_0)}{q(x_{t-1}|x_0)}\right) + log\dfrac{q(x_1|x_0)}{p_\theta(x_0|x_1)}\right]\\
+&=E_{q(x_{0:T})}\left[log\dfrac{q(x_T|x_0)}{p_\theta(x_{T})}+\sum_{t=2}^{T}log\dfrac{q(x_{t-1}|x_t,x_0)}{p_\theta(x_{t-1}|x_t)}-log p_\theta(x_0|x_1)\right]
+\end{align*}
+$$
+
+
+注意到加噪过程 $q$ 是没有可以学习的参数的, 并且 $x_T$ 近乎是纯高斯噪声, 于是上述**第一项为常量**,于是有:
+
+
+$$
+\mathcal{L}_{vlb}=E_{q(x_{0:T})}\left[\sum_{t=1}^{T}log{\dfrac{q(x_{t-1}|x_t,x_0)}{p_\theta(x_{t-1}|x_t)}}\right]+\mathcal{C}=\sum^T_{t=1}\mathcal{L}_t+\mathcal{C^\prime}
+$$
+
+
+根据多元高斯分布的KL散度求解公式:
+
+
+$$
+\mathcal{L}_t=E_{q(x_{0:T})}\left[\dfrac{\|\hat{\mu_t(x_t)}-\mu_\theta(x_t,t)\|^2}{2\|\sigma^2_\theta(x_t,t)\mathcal{I}\|}\right]+\mathcal{C}^\prime
+$$
+
+
+代入:
+
+$$
+\begin{align*}
+\hat{\mu_t}(x_t)&=\dfrac{\sqrt{\alpha_t}(1-\hat{\alpha_{t-1}})}{1-\hat{a_t}}x_t+\dfrac{\sqrt{\hat{\alpha_{t-1}}}\beta_t}{1-\hat{\alpha_t}}x_0=\dfrac{1}{\sqrt{\alpha_t}}\left(x_t-\dfrac{\beta_t}{\sqrt{1-\hat{\alpha_t}}}\hat{\epsilon_t}\right)\\
+\hat{\beta_t}&=\dfrac{1-\hat{\alpha_{t-1}}}{1-\hat{\alpha_t}}\beta_t\approx \beta_t\\
+\end{align*}
+$$
+
+即可进行计算求解训练!
+
 
 <center>
 <img src="/pics/anon_red.jpg" width="35%">
 </center>
 
 
+
+---------------------------------------------------------
+
+
+# 光速进行一个`条件化`生成的介绍:
+
+作为生成模型，扩散模型和VAE、GAN、flow等模型的发展史很相似，都是先出来了无条件生成，然后有条件生成就紧接而来。无条件生成往往是为了探索效果上限，而有条件生成则更多是应用层面的内容，因为它可以实现根据我们的`意愿来控制输出结果`。
+
+
+
+从方法上来看，条件控制生成的方式分两种：**事后修改(Classifier-Guidance)和事前训练(Classifier-Free)**。对于大多数人来说，一个SOTA级别的扩散模型训练成本太大了，而分类器（Classifier）的训练还能接受，所以就想着直接复用别人训练好的无条件扩散模型，用一个分类器来调整生成过程以实现控制生成，这就是事后修改的Classifier-Guidance方案；
+
+
+> Classifier-Guidance 条件控制方法
+
+
+无条件生成可以形式化描述为 $p_\theta(x_{t-1}|x_t)$, 加上条件 $y$ 和分类器之后改写为 $p_{\theta,\phi}(x_{t-1}|x_t,y)$,  于是有:
+
+$$
+\begin{align*}
+p_{\theta,\phi}(x_{t-1}|x_t,y)&=\dfrac{p_\theta(x_{t-1}|x_t)p_{\phi}(y|x_{t},x_{t-1})}{p_\phi(y|x_t)}\\
+&=\dfrac{p_\theta(x_{t-1}|x_t)p_{\phi}(y|x_{t})}{p_\phi(y|x_t)}\\
+&=p_\theta(x_{t-1}|x_t)e^{log p_{\phi}(y|x_{t-1})-log p_{\phi}(y|x_t)}\\
+&\approx p_\theta(x_{t-1}|x_t)e^{(x_{t-1}-x_t)\nabla log p_\phi(y|x_t)}\\
+\end{align*}
+$$
 
 
 

@@ -367,19 +367,34 @@ $$
 > Classifier-Guidance 条件控制方法
 
 
-无条件生成可以形式化描述为 $p_\theta(x_{t-1}|x_t)$, 加上条件 $y$ 和分类器之后改写为 $p_{\theta,\phi}(x_{t-1}|x_t,y)$,  于是有:
+无条件生成可以形式化描述为 $p_\theta(x_{t-1}|x_t)$ , 加上条件 $y$ 和分类器之后改写为 $p_{\theta,\phi}(x_{t-1}|x_t,y)$ ,  于是有:
 
 $$
 \begin{align*}
 p_{\theta,\phi}(x_{t-1}|x_t,y)&=\dfrac{p_\theta(x_{t-1}|x_t)p_{\phi}(y|x_{t},x_{t-1})}{p_\phi(y|x_t)}\\
-&=\dfrac{p_\theta(x_{t-1}|x_t)p_{\phi}(y|x_{t})}{p_\phi(y|x_t)}\\
+&=\dfrac{p_\theta(x_{t-1}|x_t)p_{\phi}(y|x_{t-1})}{p_\phi(y|x_t)}\\
 &=p_\theta(x_{t-1}|x_t)e^{log p_{\phi}(y|x_{t-1})-log p_{\phi}(y|x_t)}\\
 &\approx p_\theta(x_{t-1}|x_t)e^{(x_{t-1}-x_t)\nabla log p_\phi(y|x_t)}\\
+&\approx p_\theta(x_{t-1}|x_t)e^{(x_{t-1}-\mu_\theta(x_t,t))\nabla log p_\phi(y|x_t)}\\
 \end{align*}
 $$
 
+由于 
 
+$$
+p_{\theta}(x_{t-1|x_t,y})=\mathcal{N}(x_{t-1};\mu_\theta(x_t,t),\sigma^2_\theta(x_t,t)\mathcal{I})\sim exp\left(-\dfrac{(x_t-\mu_\theta(x_t,t))^2}{2\sigma_\theta^2(x_t,t)}\right)
+$$
 
+因此有:
+
+$$
+\begin{align*}
+p_{\theta,\phi}(x_{t-1}|x_t,y)&\sim exp\left(-\dfrac{(x_t-\mu_\theta(x_t,t))^2}{2\sigma_\theta^2(x_t,t)}+(x_{t-1}-\mu_\theta(x_t,t))\nabla log p_\phi(y|x_t)\right)\\
+&\sim  exp\left(-\dfrac{(x_t-\mu_\theta(x_t,t)-\sigma_\theta^2(x_t,t)\nabla log p_\phi(y|x_t))^2}{2\sigma_\theta^2(x_t,t)}\right)\\
+\end{align*}
+$$
+
+可以看到在经过一系列处理之后, 相比于原来无条件生成,仅仅多出来 $\sigma_\theta^2(x_t,t)\nabla log p_\phi(y|x_t)$ 一项. 对这一项进行控制, 便可以实现控制生成方向.
 
 
 
